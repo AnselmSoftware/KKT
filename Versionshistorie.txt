@@ -1,0 +1,80 @@
+Versionshistorie für das Kaffeekassentool
+--Version history for the coffee tool--
+-------------------------------------------------
+Created on 28.12.2022 - last change on 27.04.2025
+@author: Anselm Heuer
+Text is written in german - can easily be translated into english with translation programs :)
+-------------------------------------------------
+-------------------------------------------------
+Historie KKT v1.8 (veröffentlicht am 27.04.2025):
+- Die Dateien des Kaffeekassentools für einen Upload auf GITHub übersichtlicher gestaltet und mehr Kommentare hinzugefügt.
+- Die beiden Dateien GUITastatur.py und GUIFenster.py in einer Datei GUIElemente.py vereint.
+- Anzeige Bestellabschluss wird nur noch 2 s angezeigt, statt den bisherigen 2,7 s.
+- Weitere Parameter der Parameterdatei "KKT_Parameter"(.py) hinzugefügt.
+- Die Funktion für die Anzeige der Sonn- und Samstage im Graphen zur Anzeige des Kontoauszugs wurde kompakter programmiert.
+- Durch langes Drücken der digitalen Tastaturtaste Backspace / Zurück werden nun mehrere Zeichen aus dem Entry-Widget gelöscht.
+- Bilder und Dateien des Kaffeekassentools umbenannt. Aussagekräftigere Namen und teils englische Namen vergeben.
+- Bug gefixt, durch den die Gutschrift "Spülmaschine ausräumen" nur ein einziges mal eingelöst werden konnte (ohne Neustart der Software).
+- Checken des Mailstatus wird nur ausgeführt, wenn auch Mails gesendet werden dürfen.
+- Funktion zum Checken des Mailstatus wurde kompakter programmiert.
+- Eine neue Funktion schreibt einmal die Woche einen Log mit dem Wochenumsatz in die Datenbank.
+-------------------------------------------------
+Historie KKT v1.7 (veröffentlicht am 02.02.2025):
+- GUI-Anpassungen: Größe von Buttons und Farbe von Text --> Vereinheitlichung durchgeführt.
+- In der Anzeige der einzelnen gekauften Posten (Anzeige Kontoauszug) wurden Datum und Uhrzeit verkürzt.
+- Im Graphen zur Anzeige des Kontoauszugs wurde die Kurve etwas in der Y-Position justiert und die Wochenenden hinter der Kurve grau hinterlegt.
+- Bei Fehlern, die im Thread "StarteInterneVerwaltung" auftreten, wird der farbige Kreis "Status" in der Nutzerübersicht auf Rot gesetzt (ansonsten grün gefärbt).
+- Button in Hauptfenster mit der Abkürzung des Kaffeekassentools (KKT) öffnet ein eigenständiges Fenster mit Informationen zum Kaffeekassentool (Urheber, ...).
+- Button in Hauptfenster (Nutzerübersicht) hinzugefügt, auf dem die Abkürzung des Kaffeekassentools (KKT) steht und ein farbiger Kreis "Status" abgebildet ist.
+-------------------------------------------------
+Historie KKT v1.6 (veröffentlicht am 01.01.2025):
+- Fett drucken von Labels und Labels von Buttons nun ohne Überschreibung des Labels. Label wird im Code geladen, modifiziert und wieder abgespeichert.
+  Damit ist die .glade-Datei wieder benutzbar um Labels zu verändern.
+- Bug gefixt, durch den die Gutschrift "Spülmaschine ausräumen" durch den Korrektur-Button mehrfach im Sperrzeitraum abgerufen werden konnte.
+- Parameterdatei "KKT_Parameter"(.py) erstellt, in der wichtige Parameter aus verschiedenen Teilen des Programms gebündelt sind. Erhöht die Zugänglichkeit für Admins.
+- Das eigenständige Fenster, um einen bestimmten Betrag auf sein Konto zu laden, wurde in das Hauptfenster integriert. Es öffnet sich kein eigenständiges Fenster mehr.
+- Die Zinsberechnung bei zu hohen Schulden so angepasst, dass für alle maximal eingestellten Schulden in "KKT_Parameter" der Zinssatz zwischen 0,1 % und 2,5 % liegt.
+- Darstellung der Warnung bei zu hohen Schulden grafisch verschönert.
+- Der Zurück-Button aus der Anzeige "Warnung bei zu hohen Schulden" führt nun zur Produktübersicht und nicht zur Nutzerübersicht.
+- Das eigenständige Fenster, dass Nutzer vor weiteren Käufen stoppt (aufgrund zu hoher Schulden), wurde in das Hauptfenster integriert.
+  Es öffnet sich kein eigenständiges Fenster mehr.
+- Anzeige Bestellabschluss mit gekauften Produkten wird nur noch 2,7 s angezeigt statt 4 s.
+- Das eigenständige Fenster, um sich seinen Kontoauszug anzeigen zu lassen, wurde in das Hauptfenster integriert. Es öffnet sich kein eigenständiges Fenster mehr.
+- Grafische Darstellung des Kontoauszugs wurde verbessert und robuster programmiert, sodass eine Änderung der Zeitspanne in "KKT_Parameter" auch gut aussieht.
+- Anordnung der Buttons in der Übersicht der kaufbaren Produkte etwas erneuert und übersichtlicher gestaltet
+- Das eigenständige Fenster, um einen neuen Nutzer anzulegen, wurde in das Hauptfenster integriert. Es öffnet sich kein eigenständiges Fenster mehr.
+- Bug gefixt, durch den ein neuer Nutzer angelegt werden konnte, dessen Name schon existiert
+- Bug gefixt: Wenn ein Produkt im Bestellungslog (Datenbank) auftaucht, aber nicht in der Tabelle "Produkt", stürzt die Anzeige des Kontoauszugs ab.
+- Bug gefixt: Wenn in der Datenbank eine Spalte in der Tabelle "Bestand" nicht klar als INTEGER definiert ist, kann der Thread "StarteInterneVerwaltung" abstürzen
+- Der Name, der bei der Erstellung eines neuen Nutzers eingetragen wird, wird nach folgendem Schema formatiert: "BuchstabeVornameGroß. Nachname" z. B. "M. Mustermann"
+- Interne Fehlerüberwachung für den Thread hinzugefügt. Beim Auftreten eines Fehlers wird ein Log in die Datenbank geschrieben.
+-------------------------------------------------
+Historie KKT v1.5 (veröffentlicht am 03.01.2023):
+- Im Fensters zum Bestand anpassen wurde das Design überarbeitet (einfachere Bedienung)
+- Im Fensters zum Bestand anpassen werden je nach Situation Felder deaktiviert (Reduziert Gefahr einer Fehlbedienung)
+- Der Bestand kann nun nicht nur auf Null gesetzt werden, sondern auch auf Werte größer als Null (Inventarisierung vereinfacht)
+- Im Fenster zum Geld einzahlen wird der Betrag mehr hervorgehoben (Sichtbarkeit erhöht)
+- Im Fenster zum Geld einzahlen wird nun ein QR-Code für Überweisung in einer Banking-App angezeigt
+- Im Fenster zum Geld einzahlen werden die Buttons je nach Situation deaktiviert (Reduziert Gefahr einer Fehlbedienung)
+- Ein Bug um den "Spülmaschine ausgeräumt"-Button wurde behoben. Man konnte diesen nach einem Abbruch des Einzahlungsvorgangs nicht mehr drücken.
+- Im Fenster zum Nutzer löschen wird der Name mehr hervorgehoben (einfachere Bedienung)
+- Im Fenster zum Nutzer löschen wird der letzte Kontostand angezeigt
+- Es wird abgefragt, ob beim Löschen des Nutzers der Kontostand auf Null gesetzt werden soll.
+  Damit kann eine vorherige Abrechnung (offline) mit dem Nutzer auch digital erfasst werden
+- Im Fenster Produkte kaufen wird der Kontostand mehr hervorgehoben (Sichtbarkeit erhöht)
+- Im Fenster Produkte kaufen wird nun auch der Korrektur-Button deaktiviert, wenn nichts ausgewählt ist (Reduziert Gefahr einer Fehlbedienung)
+- Im Fenster Produkte kaufen ist die Darstellung der Anzahl der bestellten Produkte verbessert worden (Sichtbarkeit erhöht)
+- Im Fenster "Abrechnung" Darstellung der Kosten und des neuen Kontostands verbessert (Sichtbarkeit erhöht und rote Schrift je nach Kontostand)
+- Im Fenster "Abrechnung" werden die Bestellungen gebündelt. Werden mehrere gleiche Produkte gekauft, dann wird nur einmal das Produkt mit der Anzahl angezeigt
+- Anzeige der anstehenden Geburtstage mehr hervorgehoben (Sichtbarkeit erhöht) und Bug behoben, dass auch alte Geburtstage angezeigt wurden
+- Es wird nun in blauer Schrift unter dem Nutzernamen (auf dem Button) das Datum der letzten Aktivität angezeigt, wenn die letzte Aktivität über 3 Monate her ist
+- Änderungen an der Datenbankstruktur weshalb der Name der Datenbank nun verändert wurde. Die alten Datenbanken sind nicht mehr kompatibel mit KKT v1.5
+    - Datenbank enthält nun bei Nutzern den Eintrag LetzteAktivitaet
+    - Aus der Tabelle NutzerAlt wurde die Spalte Geburtstag gelöscht
+    - SLK-Kasse wurde in IAM Gästekonto umbenannt und direkt als erstes Konto platziert
+- Die Methode "ueberschreibDaten" kann nun auch mit dem Befehl datetime('now','localtime') umgehen um ein Datum neu zu setzen
+- Übersichtlichkeit der Methode "StarteInterneVerwaltung" wurde verbessert, indem diese in verschiedene Methoden aufgeteilt wurde
+-------------------------------------------------
+Historie < KKT v1.5:
+- Der Funktionsumfang des Kaffeekassentools ist in einer README beschrieben (allg. Beschreibung)
+- Zu Änderungen und Updates von der Version 1.0 (KKT v1.0) bis zur Version 1.4 (KKT v1.4) gibt es keine Informationen
