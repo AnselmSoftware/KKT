@@ -1,7 +1,7 @@
 """
 Created on 05.12.2019
 @author: Anselm Heuer
-Version 1.8 - last change on 27.04.2025
+Version 1.8 - last change on 12.05.2025
 Software fuer die digitale Kaffeekueche - Das Tool zum Abrechnen von Produkten bei vielen Nutzern!
 --Software for the digital coffee kitchen - The tool for billing products for many users!--
 --Comments in functions are partly written in German - can easily be translated into english with translation programs :)--
@@ -803,7 +803,7 @@ class MainWindow:
     def __BestellungAbschliessen(self):
         # Bestellung wird abgeschlossen, indem Kosten verrechnet und Daten in die Datenbank geschrieben werden
         self.__BestellungKosten = round(self.__BestellungKosten, 3)  # Es kam mal zu einem seltsamen Bug, dass sehr viele Nachkommastellen angegeben wurden
-        self.__UmsatzWoche += self.__BestellungKosten
+        self.__UmsatzWoche += round(self.__BestellungKosten, 3)  # Es kam mal zu einem seltsamen Bug, dass sehr viele Nachkommastellen angegeben wurden
         # Kontostand anpassen und in die Datenbank schreiben
         Kontostand = self.__Datenbank.LeseSpezielleZeilen("Nutzer", 'name="{}"'.format(self.__LabelKontoBestellung_NutzerName.get_label()))[0][2]
         KontostandNeu = round(Kontostand - self.__BestellungKosten, 3)
