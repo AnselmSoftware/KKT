@@ -35,7 +35,7 @@ Durch einen einfachen Klick auf einen Nutzer wird die Bestellübersicht geöffne
 Im Fenster der Bestellübersicht können Produkte für den Kauf ausgewählt werden.
 … weitere Beschreibung folgt noch ...
 
-Installation (auf Raspberry Pi)
+# Installation (auf Raspberry Pi)
 Wenn KKT auf einem Raspberry Pi mit Touchscreen installiert werden soll, muss dieser zunächst vollständig mit einer Desktopumgebung eingerichtet werden. KKT benötigt verschiedene Pakete bzw. Python-Bibliotheken, die installiert sein müssen:
     • GTK 3.0 – In der Regel in Raspbian / Raspberry Pi OS enthalten.
     • Python3.x – In der Regel in Raspbian / Raspberry Pi OS enthalten.
@@ -63,7 +63,7 @@ Wichtig: Das KKT muss innerhalb einer laufenden grafischen Benutzeroberfläche g
 
 Sollte das KKT zu diesem Zeitpunkt noch nicht starten, könnte das an fehlenden Paketen liegen. Die noch fehlenden Pakete werden in diesem Fall anhand der Fehlermeldungen identifiziert und installiert.
 
-Aufbau des KKT
+# Aufbau des KKT
 Die Software besteht aus den einzelnen Python-Dateien KKT_Main.py, KKT_Parameter.py, KKT_Verwaltung.py, GUIElemente.py und DBVerwaltung.py. Zudem sind die beiden Dateien KKT_GUI.glade und GUITastatur.glade enthalten aus denen die grafische Benutzeroberfläche aufgebaut wird. Des Weiteren ist die Datenbank KKT_database.sqlite für alle Daten des KKT bzw. der Nutzer enthalten sowie einige Bilder KKT_img_Warning.png, KKT_img_Purchased.png, KKT_img_Stop.png, KKT_img_Logo.png, KKT_img_QRCode.png, die innerhalb der Software dargestellt werden. Für den Verantwortlichen der Kaffeeküche sind nur die folgenden Dateien von Interesse:
     • KKT_Main.py
     • KKT_Parameter.py
@@ -72,7 +72,7 @@ Die Software besteht aus den einzelnen Python-Dateien KKT_Main.py, KKT_Parameter
 Zum Starten der Software muss KKT_Main.py aufgerufen werden (siehe Abschnitt oben). KKT_Parameter.py und KKT_img_QRCode.png müssen angepasst werden (siehe Abschnitt unten) und KKT_database.sqlite muss einmalig an die Bedürfnisse der Kaffeeküche bzw. des Verantwortlichen angepasst werden (siehe Abschnitt unten).
 Der Code des KKT ist hauptsächlich in der Datei KKT_Main.py zu finden. Für Entwickler ist diese Datei die interessanteste erste Anlaufstelle. In der Datei KKT_Parameter.py sind alle relevanten Variablen ausgelagert, sodass sie für Änderungen nicht einzeln im Code identifiziert werden müssen. In den übrigen Python-Dateien sind einzelne Funktionen ausgelagert, beispielsweise die Interaktion mit der Datenbank oder die Bereitstellung der Bildschirmtastatur. Die beiden Glade-Dateien KKT_GUI.glade und GUITastatur.glade wurden mit der Software Glade 3.40.0 erstellt und können unter anderem mit dieser Software angepasst werden. In diesen Dateien befinden sich in XML die Informationen vieler GUI-Elemente wie Buttons oder Labels.
 
-Anpassungen vor Programmstart
+# Anpassungen vor Programmstart
 Ein Feature des KKT ist das automatische Versenden von Statusmails. In diesen E-Mails wird der noch vorhandene Bestand von Produkten mitgeteilt, sofern dieser unter einen festgelegten Grenzwert fällt. Zusätzlich werden die letzten Ereignisse des KKT angehängt. Es wird nur eine E-Mail pro Woche mit allen Informationen versendet. E-Mails, die Auskunft über den Bestand geben, können dagegen einmal pro Tag versendet werden.
 Um dieses Feature zu nutzen, muss zunächst ein Mailkonto auf einem Mailserver angelegt werden, auf das per SMTP-Protokoll zugegriffen werden kann. Zudem ist eine stabile Internetverbindung zum Gerät erforderlich, auf dem KKT läuft. In der Datei KKT_Parameter.py muss das Feature außerdem eingeschaltet und eingerichtet sein. Da es sich hierbei um ein noch experimentelles Feature handelt, wird bei auftretenden Problemen im Betrieb geraten, das Feature vorerst in der Datei KKT_Parameter.py abzuschalten.
 
@@ -92,7 +92,7 @@ Die mitgelieferte Datenbank KKT_database.sqlite enthält Beispieldaten in allen 
 In der Tabelle Nutzer, die alle aktiven Nutzer des KKT enthält, können die beispielhaften Personen wie Einstein entfernt werden und alle aktiven Nutzer einer Kaffeeküche zum Start hinzugefügt werden. Es ist allerdings auch möglich, aktive Nutzer erst später im KKT anzulegen (siehe oben). Dabei sollte der Nutzer Gästekonto (ein Konto für alle Nutzer) nicht entfernt werden und der Nutzer Diebstahlkonto darf nicht entfernt werden, da die Software sonst nicht ordnungsgemäß funktioniert.
 In der Tabelle Bestand müssen die Produkte angelegt werden, die in der Kaffeeküche verkauft werden sollen. Jedes Produkt hat einen Namen, einen Bestand, eine Variable für die Aktivität, einen Sollbestand und einen Preis. Beispielsweise kann das Produkt Kaffee mit einem Bestand von 50 (genug Bohnen für 50 Tassen Kaffee vorhanden), einem Sollbestand von 20 (mindestens 20 Tassen Kaffee sollten immer zur Verfügung stehen), und einem Preis von 0,3 (Einheit Euro) angelegt werden. Die Aktivität ist 0, wodurch das Produkt im KKT angezeigt wird (Produkte mit einer Aktivität von 1 werden nicht angezeigt).
 
-Aufbau der Datenbank
+# Aufbau der Datenbank
 Die Datenbank besteht aus fünf einzelnen Tabellen, die eine unterschiedliche Anzahl an Variablen enthalten. Die Struktur der Datenbank und die Funktion der Variablen sind in der folgenden Abbildung aufgeschlüsselt:
 
 - Abbildung der Datenbank als Mindmap -
@@ -107,9 +107,9 @@ Die Tabellen Nutzer und NutzerAlt sind für die Speicherung von Nutzerdaten vorg
     • Auftreten eines Fehlers im Thread InterneVerwaltung (+ Art des Fehlers)
     • Der Wochenumsatz der letzten Kalenderwoche
 
-Beitragende
+# Beitragende
 Version 1.8 (27. April 2025):
 Komplett designt, programmiert und veröffentlicht von Anselm Lennard Heuer
 
-Lizenz
+# Lizenz
 KKT ist Open-Source und lizenziert unter der GNU General Public License v3.0.
