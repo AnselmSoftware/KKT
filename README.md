@@ -31,22 +31,23 @@ Wesentliche Merkmale:
 </div>
 
 ## Funktionen des KKT
-Die Software startet mit einer Übersichtsseite, auf der alle aktiven Nutzer angezeigt werden. Diese kann als Hauptfenster betrachtet werden. Am unteren Rand dieser Seite befindet sich eine Leiste mit einem grünen Knopf (siehe Abbildung). Im Falle eines internen Fehlers springt dieser Knopf auf Rot. Über diesen Knopf kann ein Fenster geöffnet werden, das Informationen zur Software und deren Entwicklung bereitstellt. In dieser Leiste wird außerdem ein anstehender Geburtstag eines Nutzers angezeigt. Rechts davon befindet sich ein Button zum Anlegen eines neuen Nutzers.
+Die Software startet mit einer Übersichtsseite, auf der alle (aktiven) Nutzer angezeigt werden. Diese kann als Hauptfenster betrachtet werden. Am unteren Rand dieser Seite befindet sich eine Leiste mit einem grünen Knopf (siehe Abbildung). Im Falle eines internen Fehlers springt dieser Knopf auf Rot. Über diesen Knopf kann ein Fenster geöffnet werden, das Informationen zur Software und deren Entwicklung bereitstellt. In dieser Leiste wird außerdem ein anstehender Geburtstag eines Nutzers angezeigt. Rechts davon befindet sich ein Button zum Anlegen eines neuen Nutzers.
 
 <div align="center">
     
 ***-- Platzhalter: Screenshot der Übersichtsseite des KKT --***
 </div>
 
-Auf der Übersichtsseite werden die Nutzer in drei Gruppen eingeteilt. Diese Gruppen sind in der Software voreingestellt und heißen _Permanente_, _wissenschaftliche Mitarbeiter_ und _Studierende_. Andere Gruppennamen können bei Bedarf vergeben werden, indem der Code in `KKT_Main.py` angepasst wird.\
-Neue Nutzer werden in einem separaten Fenster angelegt (siehe Abbildung). In diesem muss der Name des neuen Nutzers angegeben werden. Dieser muss sinnvoll gewählt werden und wird vor der Anlage des Nutzers überprüft. Des Weiteren wird der Name nach dem Anlegen des Nutzers formatiert. Falls vorhanden, wird der Vorname mit einem Punkt abgekürzt und folgt dem Nachnamen. Zudem muss eine Zuordnung zu einer Gruppe erfolgen. Nutzer der letzten Gruppe _Studierende_ müssen einen Betreuer angeben, sodass im Falle eines Ausscheidens des Nutzers eine Person für eventuell verbliebene Schulden geradestehen kann. Der Geburtstag kann angegeben werden, wenn dieser auf der Übersichtsseite erscheinen soll (freiwillig).
+Auf der Übersichtsseite werden die Nutzer in drei Gruppen eingeteilt. Diese Gruppen sind in der Software voreingestellt und heißen _Permanente_, _wissenschaftliche Mitarbeiter_ und _Studierende_. Andere Gruppennamen können auf Wunsch vergeben werden, indem der Code in `KKT_Main.py` angepasst wird.\
+Neue Nutzer werden in einem separaten Fenster angelegt (siehe Abbildung). In diesem muss der Name des neuen Nutzers angegeben werden. Dieser muss sinnvoll gewählt werden und wird vor der Anlage des Nutzers überprüft. Des Weiteren wird der Name nach dem Anlegen des neuen Nutzers formatiert. Falls vorhanden, wird der Vorname mit einem Punkt abgekürzt und folgt dem Nachnamen. Zudem muss eine Zuordnung zu einer Gruppe erfolgen. Nutzer der letzten Gruppe _Studierende_ müssen einen Betreuer angeben, sodass im Falle eines Ausscheidens des Nutzers eine Person für eventuell verbliebene Schulden geradestehen kann. Der Geburtstag kann angegeben werden, wenn dieser auf der Übersichtsseite erscheinen soll (freiwillig).
 
 <div align="center">
     
 ***-- Platzhalter: Screenshot der Seite Nutzer Anlegen des KKT --***
 </div>
 
-Auf der Übersichtsseite können aktive Nutzer durch einen langen Klick gelöscht werden. Hierzu mindestens drei Sekunden lang den Button des jeweiligen Nutzers gedrückt halten (Zeitspanne kann in `KKT_Parameter.py` verändert werden). Falls mit dem Nutzer eine Abrechnung des Guthabens / der Schulden stattgefunden hat, kann dies beim Löschen angegeben werden. Gelöschte Nutzer werden automatisch in der Datenbank archiviert und können so später reaktiviert werden.\
+Auf der Übersichtsseite können Nutzer durch einen langen Klick gelöscht werden. Hierzu mindestens drei Sekunden lang den Button des jeweiligen Nutzers gedrückt halten (Zeitspanne kann in `KKT_Parameter.py` verändert werden). Falls mit dem Nutzer eine Abrechnung des Guthabens / der Schulden stattgefunden hat, kann dies beim Löschen angegeben werden. Gelöschte Nutzer werden automatisch in der Datenbank archiviert und können so später reaktiviert werden.\
+KKT ermittelt im Hintergrund, ob ein Nutzer über einen längeren Zeitraum inaktiv war (Zeitspanne kann in `KKT_Parameter.py` verändert werden). Eine längere Inaktivität wird daraufhin durch ein blaues Datum unter dem Namen angezeigt, dass die letzte Aktivität angibt. Diese Information kann genutzt werden, um inaktive Nutzer zu löschen.\
 Durch einen einfachen Klick auf einen Nutzer wird die Bestellübersicht geöffnet. Oben links wird der Name des Nutzers angezeigt und es wird die Möglichkeit geboten, einen Doktortitel zu erwerben (Spaß-Feature). Zudem wird der aktuelle Kontostand angezeigt. Über zwei Buttons besteht die Möglichkeit, die letzten Käufe in einem Kontoauszug anzuzeigen und das Konto aufzuladen.
 
 <div align="center">
@@ -54,12 +55,32 @@ Durch einen einfachen Klick auf einen Nutzer wird die Bestellübersicht geöffne
 ***-- Platzhalter: Screenshot der Seite Bestellübersicht des KKT --***
 </div>
 
-Im Fenster der Bestellübersicht können Produkte für den Kauf ausgewählt werden.
+Im Fenster der Bestellübersicht können die Produkte für den Kauf ausgewählt werden. Solange der Kauf noch nicht bestätigt wurde, lässt sich die Auswahl korrigieren. Produkte, deren Bestand auf _Null_ gefallen ist, werden rot markiert und können nicht mehr ausgewählt werden. Nach dem Kauf werden der Bestand der Produkte und der Kontostand des Nutzers automatisch angepasst.
+Es gibt ein Schuldenlimit für Nutzer, ab dem keine Käufe mehr getätigt werden können (in `KKT_Parameter.py` festgelegt). Ab einem Drittel des Schuldenlimits wird der Kontostand in der Bestellübersicht rot markiert. Ab zwei Dritteln des Schuldenlimits werden Zinsen auf den Kauf von Produkten erhoben. Diese steigen mit der Höhe der Schulden exponentiell an (Minimalzins: ca. 0,05 %, Maximalzins: ca. 2,5 %) bis das Schuldenlimit erreicht ist. Dieses Feature soll für ein rechtzeitiges Aufladen des Kontos sorgen.\
+Werden Produkte, wie beispielsweise Kaffee, neu gekauft, muss der Bestand in der Software entsprechend erhöht werden. Hierzu den Button des jeweiligen Produkts mindestens zwei Sekunden lang gedrückt halten (Zeitspanne kann in `KKT_Parameter.py` verändert werden). In einem separaten Fenster kann der Bestand um einen auswählbaren Betrag erhöht oder um den aktuellen Bestand reduziert werden (zur Korrektur von Fehleingaben). Zudem können nicht abgerechnete Produkte auf ein _Diebstahlkonto_ gebucht werden. Dies ermöglicht es, den Verlust der Kaffeeküche nach einer Weile genau zu protokollieren. Hierzu die Datenbank auswerten – der Kontostand des _Diebstahlkontos_ entspricht dem Verlust.
 
 <div align="center">
     
-***… Platzhalter: weitere Beschreibung folgt noch ...***
+***… Platzhalter: Screenshot des Fensters Bestand anpassen des KKT ...***
 </div>
+
+Über das Fenster der Bestellübersicht können Nutzer durch Klicken auf den entsprechenden Button ihr Konto auch selbstständig aufladen. In einem separaten Fenster können unterschiedliche Beträge ausgewählt werden. Darüber hinaus kann ein kleiner Betrag (in `KKT_Parameter.py` festgelegt) ausgewählt werden, der für das Ausräumen einer Spülmaschine vorgesehen ist. Damit sollen die Nutzer motiviert werden, dies auch zu tun. Erst nach Ablauf einer bestimmten Zeitspanne ist eine erneute Auswahl dieses Betrags möglich (in `KKT_Parameter.py` festgelegt). Auf der rechten Seite werden, falls vorhanden, die Bankdaten des Verantwortlichen der Kaffeeküche angezeigt. Die tatsächliche Transaktion basiert auf Vertrauensbasis, beispielsweise durch Überweisung oder Einwurf von Bargeld in eine Kaffeekasse / Sparbüchse in der Kaffeeküche.
+
+<div align="center">
+    
+***… Platzhalter: Screenshot des Fensters Konto aufladen des KKT ...***
+</div>
+
+Ebenfalls über das Fenster der Bestellübersicht können Nutzer durch Klicken auf den entsprechenden Button einen Kontoauszug aufrufen. In dem separaten Fenster werden auf der linken Seite die letzten Käufe mit dem jeweiligen Datum angezeigt. Es wird auch angegeben, wie viel Geld insgesamt im betrachteten Zeitraum ausgegeben wurde. Die Ausgaben pro Tag werden auf der rechten Seite zusätzlich in einer informativen Grafik dargestellt.
+
+<div align="center">
+    
+***… Platzhalter: Screenshot des Fensters Kontoauszug des KKT ...***
+</div>
+
+KKT ermittelt im Hintergrund für jede Kalenderwoche den Umsatz und speichert diese Information in der Datenbank. So lässt sich nach einiger Zeit ebenfalls erkennen, ob die Einnahmen und Ausgaben übereinstimmen oder ob zu viele Produkte nicht abgerechnet wurden.
+
+Ein besonderes Feature des KKT ist das automatische Versenden von Statusmails. In diesen E-Mails wird der noch vorhandene Bestand von Produkten mitgeteilt, sofern dieser unter einen festgelegten Grenzwert fällt. Zusätzlich werden die letzten Systemmeldungen bzw. Ereignisse des KKT angehängt. Es wird nur eine E-Mail pro Woche mit allen Informationen versendet. E-Mails, die Auskunft über den Bestand geben, können dagegen einmal pro Tag versendet werden.
 
 ## Installation (auf Raspberry Pi)
 ### Notwendige Pakete bzw. Python-Bibliotheken
@@ -127,7 +148,7 @@ Die Datei `KKT_Parameter.py` muss einmalig an die Bedürfnisse der jeweiligen Ka
 - Die Bankdaten einer Kaffeeküche bzw. eines Verantwortlichen
 - Nach welcher Zeitspanne ein Nutzer als inaktiv markiert wird
 
-Wenn das Feature zum automatischen Versenden von Statusmails genutzt werden soll (s. [Unten](#Statusmails)), muss es aktiviert werden (die entsprechende Variable muss auf `True` gesetzt werden) und die Informationen zum angelegten Mailkonto müssen in den weiteren entsprechenden Variablen gespeichert werden.
+Wenn das Feature zum automatischen Versenden von Statusmails genutzt werden soll, muss es aktiviert werden. Dazu die entsprechende Variable auf `True` setzen und die Informationen zum angelegten Mailkonto (s. [Unten](#Statusmails)) in den weiteren entsprechenden Variablen speichern.
 
 ### Datenbank
 Die mitgelieferte Datenbank `KKT_database.sqlite` enthält Beispieldaten in allen zum Programmstart erforderlichen Tabellen und kann somit sofort verwendet werden. Es ist allerdings sinnvoll, die Datenbank an die Bedürfnisse der Kaffeeküche bzw. des Verantwortlichen anzupassen. Hierfür kann beispielsweise die Software _DB Browser for SQLite_ verwendet werden.\
@@ -138,8 +159,7 @@ In der Tabelle `Bestand` müssen die Produkte angelegt werden, die in der Kaffee
 Wenn ein Bankkonto für die Kaffeeküche existiert, kann für eine schnelle Überweisung ein QR-Code angelegt (siehe eigene Banking-App) und im KKT angezeigt werden. Der QR-Code muss hierfür in der Datei `KKT_img_QRCode.png` gespeichert sein. Die in diesem Beispielbild vorgegebene Auflösung darf hierbei nicht verändert werden!
 
 ### Statusmails
-Ein besonderes Feature des KKT ist das automatische Versenden von Statusmails. In diesen E-Mails wird der noch vorhandene Bestand von Produkten mitgeteilt, sofern dieser unter einen festgelegten Grenzwert fällt. Zusätzlich werden die letzten Ereignisse des KKT angehängt. Es wird nur eine E-Mail pro Woche mit allen Informationen versendet. E-Mails, die Auskunft über den Bestand geben, können dagegen einmal pro Tag versendet werden.\
-Um dieses Feature nutzen zu können, muss zunächst ein Mailkonto auf einem Mailserver angelegt werden, auf das per SMTP-Protokoll zugegriffen werden kann. Zudem ist eine stabile Internetverbindung zum Gerät erforderlich, auf dem KKT läuft. In der Datei `KKT_Parameter.py` muss das Feature außerdem aktiviert und eingerichtet sein. Da es sich hierbei noch um ein experimentelles Feature handelt, wird bei auftretenden Problemen empfohlen, das Feature vorerst abzuschalten.
+Um das Feature der Statusmails nutzen zu können, muss zunächst ein Mailkonto auf einem Mailserver angelegt werden, auf das per SMTP-Protokoll zugegriffen werden kann. Zudem ist eine stabile Internetverbindung zum Gerät erforderlich, auf dem das KKT läuft. In der Datei `KKT_Parameter.py` muss das Feature außerdem aktiviert und eingerichtet sein. Da es sich hierbei noch um ein experimentelles Feature handelt, wird bei auftretenden Problemen empfohlen, das Feature vorerst abzuschalten.
 
 ## Aufbau der Datenbank
 Die Datenbank besteht aus fünf einzelnen Tabellen, die eine unterschiedliche Anzahl an Variablen enthalten. Die Struktur der Datenbank und die Funktion der Variablen sind in der folgenden Abbildung aufgeschlüsselt:
