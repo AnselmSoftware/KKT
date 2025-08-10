@@ -164,7 +164,73 @@ Um das Feature der Statusmails nutzen zu können, muss zunächst ein Mailkonto a
 ## Aufbau der Datenbank
 Die Datenbank besteht aus fünf einzelnen Tabellen, die eine unterschiedliche Anzahl an Variablen enthalten. Die Struktur der Datenbank und die Funktion der Variablen sind in der folgenden Abbildung aufgeschlüsselt:
 
-<img width="1248" height="2950" alt="Übersicht Datenbank" src="https://github.com/user-attachments/assets/4e7ba0b0-14c5-4a0d-b46f-760e37fb94b3" />
+
+```mermaid
+graph TD;
+   A@{ shape: cyl, label: "KKT Datenbank" } --> T1@{ shape: processes, label: "Tabelle _Nutzer_" };
+   A --> T2@{ shape: processes, label: "Tabelle _NutzerAlt_" };
+   A --> T3@{ shape: processes, label: "Tabelle _Bestand_" };
+   A --> T4@{ shape: processes, label: "Tabelle _Bestellung_" };
+   A --> T5@{ shape: processes, label: "Tabelle _Log_" };
+   T1 --> V1@{ shape: rect, label: "+primary_key: INTEGER
++name: TEXT
++kontostand: REAL
++rang: INTEGER
++Geburtstag: TEXT
++LetzteAktivitaet: TEXT" }
+style V1 text-align:left
+   T2 --> V2@{ shape: rect, label: "+primary_key: INTEGER
++name: TEXT
++kontostand: REAL
++rang: INTEGER" }
+style V2 text-align:left
+   T3 --> V3@{ shape: rect, label: "+primary_key: INTEGER
++produkt: TEXT
++anzahl: INTEGER
++aktiv: INTEGER
++soll: INTEGER
++kosten: REAL" }
+style V3 text-align:left
+   T4 --> V4@{ shape: rect, label: "+primary_key: INTEGER
++zeitpunkt: TEXT
++produkt: TEXT
++name: TEXT" }
+style V4 text-align:left
+   T5 --> V5@{ shape: rect, label: "+primary_key: INTEGER
++zeitpunkt: TEXT
++nachricht: TEXT" }
+style V5 text-align:left
+```
+
+| Name | Funktion / Beschreibung der Variable |
+| --- | --- |
+| primary_key | Eindeutiger Identifikator für Datensatz. |
+| name | Name des Nutzers. |
+| kontostand | Aktueller Kontostand des Nutzers. |
+| rang | Die Benutzerrolle, z. B. _Permanenter_, _wissenschaftlicher Mitarbeiter_ oder _Studierender_, legt fest, in welchem Tab der Übersichtsseite ein Nutzer angezeigt wird. |
+| Geburtstag | Geburtsdatum des Nutzers. Wird einige Tage vor dem Geburtstag auf der Übersichtsseite angezeigt. |
+| LetzteAktivitaet | Datum und Uhrzeit der letzten Aktivität des Nutzers. In der Regel der letzte Kauf eines Produkts. |
+| --- | --- |
+| primary_key | Eindeutiger Identifikator für Datensatz. |
+| name | Name des Nutzers. |
+| kontostand | Historischer Kontostand vor der Löschung des Nutzers. |
+| rang | Historische Benutzerrolle. |
+| --- | --- |
+| primary_key | Eindeutiger Identifikator für Datensatz. |
+| produkt | Name des Produkts. |
+| anzahl | Der aktuelle Bestand des Produkts. |
+| aktiv | Status, ob das Produkt im KKT angezeigt werden soll. |
+| soll | Sollbestand, der mindestens vorhanden sein sollte, bis wieder eingekauft werden muss. |
+| kosten | Preis des Produkts in Euro. |
+| --- | --- |
+| primary_key | Eindeutiger Identifikator für Datensatz. |
+| zeitpunkt | Datum und Uhrzeit der Bestellung / des Kaufs. |
+| produkt | Das bestellte / gekaufte Produkt. |
+| name | Name des Nutzers, der die Aktion ausgeführt hat. |
+| --- | --- |
+| primary_key | Eindeutiger Identifikator für Datensatz. |
+| zeitpunkt | Datum und Uhrzeit des Eintrags. |
+| nachricht | Eigentliche Systemmeldung oder Ereignisbeschreibung. |
 
 Die Tabellen `Nutzer` und `NutzerAlt` sind für die Speicherung von Nutzerdaten vorgesehen. Bei der Löschung eines Nutzers werden einige seiner Daten in die Tabelle `NutzerAlt` transferiert. In der Tabelle `Bestand` sind die Produkte gespeichert, die im KKT angezeigt und erworben werden können. Die Tabellen `Bestellung` und `Log` dienen der Auswertung bzw. Kontrolle. In `Bestellung` werden alle Bestellungen / Käufe von Nutzern protokolliert und in `Log` sind Systemmeldungen bzw. Ereignisse protokolliert, die für eine Fehlersuche oder das Auffinden einer Manipulation herangezogen werden können. Folgende Ereignisse werden protokolliert:
 - Neustart der Software
