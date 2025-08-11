@@ -207,7 +207,7 @@ style V5 text-align:left
 | primary_key | Eindeutiger Identifikator für Datensatz. |
 | name | Name des Nutzers. Üblicherweise wird der Vorname abgekürzt, gefolgt vom Nachnamen. |
 | kontostand | Aktueller Kontostand des Nutzers. |
-| rang | Die Benutzerrolle, z. B. _Permanenter_, _wissenschaftlicher Mitarbeiter_ oder _Studierender_, legt fest, in welchem Tab der Übersichtsseite ein Nutzer angezeigt wird. Mögliche Werte sind 0, 1 oder 2. |
+| rang | Die Benutzerrolle, z. B. _Permanenter_, _wissenschaftlicher Mitarbeiter_ oder _Studierender_, legt fest, in welchem Tab der Übersichtsseite ein Nutzer angezeigt wird. Mögliche Werte: 0, 1, 2. |
 | Geburtstag | Geburtsdatum des Nutzers. Wird einige Tage vor dem Geburtstag auf der Übersichtsseite angezeigt. |
 | LetzteAktivitaet | Datum mit Uhrzeit der letzten Aktivität des Nutzers. In der Regel der letzte Kauf eines Produkts. |
 | ------------- | ------------- |
