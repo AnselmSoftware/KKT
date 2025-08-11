@@ -48,7 +48,7 @@ Neue Nutzer werden in einem separaten Fenster angelegt (siehe Abbildung). In die
 
 Auf der Übersichtsseite können Nutzer durch einen langen Klick gelöscht werden. Hierzu mindestens drei Sekunden lang den Button des jeweiligen Nutzers gedrückt halten (Zeitspanne kann in `KKT_Parameter.py` verändert werden). Falls mit dem Nutzer eine Abrechnung des Guthabens / der Schulden stattgefunden hat, kann dies beim Löschen angegeben werden. Gelöschte Nutzer werden automatisch in der Datenbank archiviert und können so später reaktiviert werden.\
 KKT ermittelt im Hintergrund, ob ein Nutzer über einen längeren Zeitraum inaktiv war (Zeitspanne kann in `KKT_Parameter.py` verändert werden). Eine längere Inaktivität wird daraufhin durch ein blaues Datum unter dem Namen angezeigt, dass die letzte Aktivität angibt. Diese Information kann genutzt werden, um inaktive Nutzer zu löschen.\
-Durch einen einfachen Klick auf einen Nutzer wird die Bestellübersicht geöffnet. Oben links wird der Name des Nutzers angezeigt und es wird die Möglichkeit geboten, einen Doktortitel zu erwerben (Spaß-Feature). Zudem wird der aktuelle Kontostand angezeigt. Über zwei Buttons besteht die Möglichkeit, die letzten Käufe in einem Kontoauszug anzuzeigen und das Konto aufzuladen.
+Durch einen einfachen Klick auf einen Nutzer wird die Bestellübersicht geöffnet (siehe Abbildung). Oben links wird der Name des Nutzers angezeigt und es wird die Möglichkeit geboten, einen Doktortitel zu erwerben (Spaß-Feature). Zudem wird der aktuelle Kontostand angezeigt. Über zwei Buttons besteht die Möglichkeit, die letzten Käufe in einem Kontoauszug anzuzeigen und das Konto aufzuladen.
 
 <div align="center">
     
@@ -56,22 +56,22 @@ Durch einen einfachen Klick auf einen Nutzer wird die Bestellübersicht geöffne
 </div>
 
 Im Fenster der Bestellübersicht können die Produkte für den Kauf ausgewählt werden. Solange der Kauf noch nicht bestätigt wurde, lässt sich die Auswahl korrigieren. Produkte, deren Bestand auf _Null_ gefallen ist, werden rot markiert und können nicht mehr ausgewählt werden. Nach dem Kauf werden der Bestand der Produkte und der Kontostand des Nutzers automatisch angepasst.
-Es gibt ein Schuldenlimit für Nutzer, ab dem keine Käufe mehr getätigt werden können (in `KKT_Parameter.py` festgelegt). Ab einem Drittel des Schuldenlimits wird der Kontostand in der Bestellübersicht rot markiert. Ab zwei Dritteln des Schuldenlimits werden Zinsen auf den Kauf von Produkten erhoben. Diese steigen mit der Höhe der Schulden exponentiell an (Minimalzins: ca. 0,05 %, Maximalzins: ca. 2,5 %) bis das Schuldenlimit erreicht ist. Dieses Feature soll für ein rechtzeitiges Aufladen des Kontos sorgen.\
-Werden Produkte, wie beispielsweise Kaffee, neu gekauft, muss der Bestand in der Software entsprechend erhöht werden. Hierzu den Button des jeweiligen Produkts mindestens zwei Sekunden lang gedrückt halten (Zeitspanne kann in `KKT_Parameter.py` verändert werden). In einem separaten Fenster kann der Bestand um einen auswählbaren Betrag erhöht oder um den aktuellen Bestand reduziert werden (zur Korrektur von Fehleingaben). Zudem können nicht abgerechnete Produkte auf ein _Diebstahlkonto_ gebucht werden. Dies ermöglicht es, den Verlust der Kaffeeküche nach einer Weile genau zu protokollieren. Hierzu die Datenbank auswerten – der Kontostand des _Diebstahlkontos_ entspricht dem Verlust.
+Es gibt ein Schuldenlimit für Nutzer, ab dem keine Käufe mehr getätigt werden können (in `KKT_Parameter.py` festgelegt). Ab einem Drittel des Schuldenlimits wird der Kontostand in der Bestellübersicht rot markiert. Ab zwei Dritteln des Schuldenlimits werden Zinsen auf den Kauf von Produkten erhoben. Diese steigen mit der Höhe der Schulden exponentiell an (Minimalzins: ca. 0,05 %, Maximalzins: ca. 2,5 %) bis das Schuldenlimit erreicht ist. Dieses Feature soll Nutzer dazu bringen, ihr Konto rechtzeitig aufzuladen.\
+Werden Produkte, wie beispielsweise Kaffee, neu gekauft, muss der Bestand in der Software entsprechend erhöht werden. Hierzu den Button des jeweiligen Produkts mindestens zwei Sekunden lang gedrückt halten (Zeitspanne kann in `KKT_Parameter.py` verändert werden). In einem separaten Fenster (siehe Abbildung) kann der Bestand um einen auswählbaren Betrag erhöht oder um den aktuellen Bestand reduziert werden (zur Korrektur von Fehleingaben). Zudem können nicht abgerechnete Produkte auf ein _Diebstahlkonto_ gebucht werden. Dies ermöglicht es, den Verlust der Kaffeeküche nach einer Weile genau zu protokollieren. Hierzu die Datenbank auswerten – der Kontostand des _Diebstahlkontos_ entspricht dem Verlust.
 
 <div align="center">
     
 ***… Platzhalter: Screenshot des Fensters Bestand anpassen des KKT ...***
 </div>
 
-Über das Fenster der Bestellübersicht können Nutzer durch Klicken auf den entsprechenden Button ihr Konto auch selbstständig aufladen. In einem separaten Fenster können unterschiedliche Beträge ausgewählt werden. Darüber hinaus kann ein kleiner Betrag (in `KKT_Parameter.py` festgelegt) ausgewählt werden, der für das Ausräumen einer Spülmaschine vorgesehen ist. Damit sollen die Nutzer motiviert werden, dies auch zu tun. Erst nach Ablauf einer bestimmten Zeitspanne ist eine erneute Auswahl dieses Betrags möglich (in `KKT_Parameter.py` festgelegt). Auf der rechten Seite werden, falls vorhanden, die Bankdaten des Verantwortlichen der Kaffeeküche angezeigt. Die tatsächliche Transaktion basiert auf Vertrauensbasis, beispielsweise durch Überweisung oder Einwurf von Bargeld in eine Kaffeekasse / Sparbüchse in der Kaffeeküche.
+Über das Fenster der Bestellübersicht können Nutzer durch Klicken auf den entsprechenden Button ihr Konto auch selbstständig aufladen. In einem separaten Fenster können unterschiedliche Beträge ausgewählt werden (siehe Abbildung). Darüber hinaus kann ein kleiner Betrag (in `KKT_Parameter.py` festgelegt) ausgewählt werden, der für das Ausräumen einer Spülmaschine vorgesehen ist. Damit sollen die Nutzer motiviert werden, dies auch zu tun. Erst nach Ablauf einer bestimmten Zeitspanne ist eine erneute Auswahl dieses Betrags möglich (in `KKT_Parameter.py` festgelegt). Auf der rechten Seite werden, falls vorhanden, die Bankdaten des Verantwortlichen der Kaffeeküche angezeigt. Die tatsächliche Transaktion basiert auf Vertrauensbasis, beispielsweise durch Überweisung oder Einwurf von Bargeld in eine Kaffeekasse / Sparbüchse in der Kaffeeküche.
 
 <div align="center">
     
 ***… Platzhalter: Screenshot des Fensters Konto aufladen des KKT ...***
 </div>
 
-Ebenfalls über das Fenster der Bestellübersicht können Nutzer durch Klicken auf den entsprechenden Button einen Kontoauszug aufrufen. In dem separaten Fenster werden auf der linken Seite die letzten Käufe mit dem jeweiligen Datum angezeigt. Es wird auch angegeben, wie viel Geld insgesamt im betrachteten Zeitraum ausgegeben wurde. Die Ausgaben pro Tag werden auf der rechten Seite zusätzlich in einer informativen Grafik dargestellt.
+Ebenfalls über das Fenster der Bestellübersicht können Nutzer durch Klicken auf den entsprechenden Button einen Kontoauszug aufrufen. In dem separaten Fenster werden auf der linken Seite die letzten Käufe mit dem jeweiligen Datum angezeigt (siehe Abbildung). Es wird auch angegeben, wie viel Geld insgesamt im betrachteten Zeitraum ausgegeben wurde. Die Ausgaben pro Tag werden auf der rechten Seite zusätzlich in einer informativen Grafik dargestellt.
 
 <div align="center">
     
@@ -80,7 +80,7 @@ Ebenfalls über das Fenster der Bestellübersicht können Nutzer durch Klicken a
 
 KKT ermittelt im Hintergrund für jede Kalenderwoche den Umsatz und speichert diese Information in der Datenbank. So lässt sich nach einiger Zeit ebenfalls erkennen, ob die Einnahmen und Ausgaben übereinstimmen oder ob zu viele Produkte nicht abgerechnet wurden.
 
-Ein besonderes Feature des KKT ist das automatische Versenden von Statusmails. In diesen E-Mails wird der noch vorhandene Bestand von Produkten mitgeteilt, sofern dieser unter einen festgelegten Grenzwert fällt. Zusätzlich werden die letzten Systemmeldungen bzw. Ereignisse des KKT angehängt. Es wird nur eine E-Mail pro Woche mit allen Informationen versendet. E-Mails, die Auskunft über den Bestand geben, können dagegen einmal pro Tag versendet werden.
+Ein besonderes Feature des KKT ist das automatische Versenden von Statusmails. In diesen E-Mails wird über den noch vorhandenen Bestand von Produkten informiert, sofern dieser einen festgelegten Grenzwert (in Datenbank festgelegt) unterschreitet. Zusätzlich werden die letzten Systemmeldungen bzw. Ereignisse des KKT angehängt. Es wird nur eine E-Mail pro Woche mit allen Informationen versendet. E-Mails, die Auskunft über den Bestand geben, können dagegen einmal pro Tag versendet werden.
 
 ## Installation (auf Raspberry Pi)
 ### Notwendige Pakete bzw. Python-Bibliotheken
@@ -205,31 +205,31 @@ style V5 text-align:left
 | Name | Funktion / Beschreibung der Variable |
 | --- | --- |
 | primary_key | Eindeutiger Identifikator für Datensatz. |
-| name | Name des Nutzers. |
+| name | Name des Nutzers. Üblicherweise wird der Vorname abgekürzt, gefolgt vom Nachnamen. |
 | kontostand | Aktueller Kontostand des Nutzers. |
-| rang | Die Benutzerrolle, z. B. _Permanenter_, _wissenschaftlicher Mitarbeiter_ oder _Studierender_, legt fest, in welchem Tab der Übersichtsseite ein Nutzer angezeigt wird. |
+| rang | Die Benutzerrolle, z. B. _Permanenter_, _wissenschaftlicher Mitarbeiter_ oder _Studierender_, legt fest, in welchem Tab der Übersichtsseite ein Nutzer angezeigt wird. Mögliche Werte sind 0, 1 oder 2. |
 | Geburtstag | Geburtsdatum des Nutzers. Wird einige Tage vor dem Geburtstag auf der Übersichtsseite angezeigt. |
-| LetzteAktivitaet | Datum und Uhrzeit der letzten Aktivität des Nutzers. In der Regel der letzte Kauf eines Produkts. |
-| --- | --- |
+| LetzteAktivitaet | Datum mit Uhrzeit der letzten Aktivität des Nutzers. In der Regel der letzte Kauf eines Produkts. |
+| ------------- | ------------- |
 | primary_key | Eindeutiger Identifikator für Datensatz. |
-| name | Name des Nutzers. |
-| kontostand | Historischer Kontostand vor der Löschung des Nutzers. |
-| rang | Historische Benutzerrolle. |
-| --- | --- |
+| name | Name des archivierten Nutzers. |
+| kontostand | Letzter Kontostand vor der Löschung des Nutzers. |
+| rang | Letzte Benutzerrolle vor der Löschung des Nutzers. |
+| ------------- | ------------- |
 | primary_key | Eindeutiger Identifikator für Datensatz. |
 | produkt | Name des Produkts. |
 | anzahl | Der aktuelle Bestand des Produkts. |
-| aktiv | Status, ob das Produkt im KKT angezeigt werden soll. |
-| soll | Sollbestand, der mindestens vorhanden sein sollte, bis wieder eingekauft werden muss. |
-| kosten | Preis des Produkts in Euro. |
-| --- | --- |
+| aktiv | Die Aktivität legt fest, ob das Produkt im KKT angezeigt werden soll. |
+| soll | Ein Sollbestand, der mindestens vorhanden sein sollte, bis wieder eingekauft werden muss. |
+| kosten | Preis des Produkts (in Euro). |
+| ------------- | ------------- |
 | primary_key | Eindeutiger Identifikator für Datensatz. |
-| zeitpunkt | Datum und Uhrzeit der Bestellung / des Kaufs. |
-| produkt | Das bestellte / gekaufte Produkt. |
-| name | Name des Nutzers, der die Aktion ausgeführt hat. |
-| --- | --- |
+| zeitpunkt | Datum mit Uhrzeit des Kaufs eines Produkts. |
+| produkt | Das gekaufte Produkt. |
+| name | Name des Nutzers, der den Kauf ausgeführt hat. |
+| ------------- | ------------- |
 | primary_key | Eindeutiger Identifikator für Datensatz. |
-| zeitpunkt | Datum und Uhrzeit des Eintrags. |
+| zeitpunkt | Datum mit Uhrzeit der Systemmeldung oder Ereignisbeschreibung. |
 | nachricht | Eigentliche Systemmeldung oder Ereignisbeschreibung. |
 
 Die Tabellen `Nutzer` und `NutzerAlt` sind für die Speicherung von Nutzerdaten vorgesehen. Bei der Löschung eines Nutzers werden einige seiner Daten in die Tabelle `NutzerAlt` transferiert. In der Tabelle `Bestand` sind die Produkte gespeichert, die im KKT angezeigt und erworben werden können. Die Tabellen `Bestellung` und `Log` dienen der Auswertung bzw. Kontrolle. In `Bestellung` werden alle Bestellungen / Käufe von Nutzern protokolliert und in `Log` sind Systemmeldungen bzw. Ereignisse protokolliert, die für eine Fehlersuche oder das Auffinden einer Manipulation herangezogen werden können. Folgende Ereignisse werden protokolliert:
