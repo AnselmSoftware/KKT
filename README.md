@@ -25,10 +25,8 @@ Wesentliche Merkmale:
 - **Einfach zu verwalten** – Vom Anlegen neuer Nutzer über das Aufladen von Guthaben auf ein Nutzerkonto bis hin zum Ein- und Austragen vorhandener Produkte ist alles innerhalb der Software möglich - ohne manuelle Interaktion mit der Datenbank.
 - **Online** – Verantwortliche profitieren vom automatischen Erhalt von Statusmails über den Bestand von Produkten und Ereignissen im KKT.
 
-<div align="center">
-    
-***-- Platzhalter: Foto von RPi + Touchscreen mit laufendem KKT (IAM-WK) --***
-</div>
+<img width="2500" height="1354" alt="KKT_im_Einsatz" src="https://github.com/user-attachments/assets/69d7ba23-48f6-4fc0-833c-455d86cf9346" />
+
 
 ## Funktionen des KKT
 Die Software startet mit einer Übersichtsseite, auf der alle (aktiven) Nutzer angezeigt werden. Diese kann als Hauptfenster betrachtet werden. Am unteren Rand dieser Seite befindet sich eine Leiste mit einem grünen Knopf (siehe Abbildung). Im Falle eines internen Fehlers springt dieser Knopf auf Rot. Über diesen Knopf kann ein Fenster geöffnet werden, das Informationen zur Software und deren Entwicklung bereitstellt. In dieser Leiste wird außerdem ein anstehender Geburtstag eines Nutzers angezeigt. Rechts davon befindet sich ein Button zum Anlegen eines neuen Nutzers.
