@@ -70,7 +70,7 @@ Ebenfalls über das Fenster der Bestellübersicht können Nutzer durch Klicken a
    <img width="802" height="482" alt="KKT_Screenshot_6" src="https://github.com/user-attachments/assets/463b33aa-26cf-4e92-9b8b-983c77971baa" />
 </div>
 
-KKT ermittelt im Hintergrund für jede Kalenderwoche den Umsatz und speichert diese Information in der Datenbank. So lässt sich nach einiger Zeit ebenfalls erkennen, ob die Einnahmen und Ausgaben übereinstimmen oder ob zu viele Produkte nicht abgerechnet wurden.
+KKT ermittelt im Hintergrund für jede Kalenderwoche den Umsatz und die Einzahlungen von Nutzern und speichert diese Information in der Datenbank. So lässt sich nach einiger Zeit ebenfalls erkennen, ob die Einnahmen und Ausgaben übereinstimmen oder ob zu viele Produkte nicht abgerechnet wurden.
 
 Ein besonderes Feature des KKT ist das automatische Versenden von Statusmails. In diesen E-Mails wird über den noch vorhandenen Bestand von Produkten informiert, sofern dieser einen festgelegten Grenzwert (in Datenbank festgelegt) unterschreitet. Zusätzlich werden die letzten Systemmeldungen bzw. Ereignisse des KKT angehängt. Es wird nur eine E-Mail pro Woche mit allen Informationen versendet. E-Mails, die Auskunft über den Bestand geben, können dagegen einmal pro Tag versendet werden.
 
@@ -235,7 +235,7 @@ Die Tabellen `Nutzer` und `NutzerAlt` sind für die Speicherung von Nutzerdaten 
 - Der Wochenumsatz der letzten Kalenderwoche
 
 ## Beitragende
-Bis Version 1.8 vom 27. April 2025:\
+Bis Version 1.9 vom 12. September 2025:\
 Komplett designt, programmiert und veröffentlicht von _Anselm Lennard Heuer_
 
 ## Lizenz
