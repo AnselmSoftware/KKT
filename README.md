@@ -36,14 +36,14 @@ Die Software startet mit einer Übersichtsseite, auf der alle (aktiven) Nutzer a
 </div>
 
 Auf der Übersichtsseite werden die Nutzer in drei Gruppen eingeteilt. Diese Gruppen sind in der Software voreingestellt und heißen _Permanente_, _wissenschaftliche Mitarbeiter_ und _Studierende_. Andere Gruppennamen können auf Wunsch vergeben werden, indem `KKT_Parameter.py` angepasst wird.\
+Auf der Übersichtsseite können Nutzer durch einen langen Klick gelöscht werden. Hierzu mindestens drei Sekunden lang den Button des jeweiligen Nutzers gedrückt halten (Zeitspanne kann in `KKT_Parameter.py` verändert werden). Falls mit dem Nutzer eine Abrechnung des Guthabens / der Schulden stattgefunden hat, kann dies beim Löschen angegeben werden. Gelöschte Nutzer werden automatisch in der Datenbank archiviert und können so später reaktiviert werden.\
+KKT ermittelt im Hintergrund, ob ein Nutzer über einen längeren Zeitraum inaktiv war (Zeitspanne kann in `KKT_Parameter.py` verändert werden). Eine längere Inaktivität wird daraufhin durch ein blaues Datum unter dem Namen angezeigt, dass die letzte Aktivität angibt. Diese Information kann genutzt werden, um inaktive Nutzer zu löschen.\
 Neue Nutzer werden in einem separaten Fenster angelegt (siehe Abbildung). In diesem muss der Name des neuen Nutzers angegeben werden. Dieser muss sinnvoll gewählt werden und wird vor der Anlage des Nutzers überprüft. Des Weiteren wird der Name nach dem Anlegen des neuen Nutzers formatiert. Falls vorhanden, wird der Vorname mit einem Punkt abgekürzt und folgt dem Nachnamen. Zudem muss eine Zuordnung zu einer Gruppe erfolgen. Nutzer der letzten Gruppe _Studierende_ müssen einen Betreuer angeben, sodass im Falle eines Ausscheidens des Nutzers eine Person für eventuell verbliebene Schulden geradestehen kann. Der Geburtstag kann angegeben werden, wenn dieser auf der Übersichtsseite erscheinen soll (freiwillig).
 
 <div align="center">
    <img width="802" height="482" alt="KKT_Screenshot_2" src="https://github.com/user-attachments/assets/678c6ae0-f780-4640-9824-5924093b3b47" />
 </div>
 
-Auf der Übersichtsseite können Nutzer durch einen langen Klick gelöscht werden. Hierzu mindestens drei Sekunden lang den Button des jeweiligen Nutzers gedrückt halten (Zeitspanne kann in `KKT_Parameter.py` verändert werden). Falls mit dem Nutzer eine Abrechnung des Guthabens / der Schulden stattgefunden hat, kann dies beim Löschen angegeben werden. Gelöschte Nutzer werden automatisch in der Datenbank archiviert und können so später reaktiviert werden.\
-KKT ermittelt im Hintergrund, ob ein Nutzer über einen längeren Zeitraum inaktiv war (Zeitspanne kann in `KKT_Parameter.py` verändert werden). Eine längere Inaktivität wird daraufhin durch ein blaues Datum unter dem Namen angezeigt, dass die letzte Aktivität angibt. Diese Information kann genutzt werden, um inaktive Nutzer zu löschen.\
 Durch einen einfachen Klick auf einen Nutzer wird die Bestellübersicht geöffnet (siehe Abbildung). Oben links wird der Name des Nutzers angezeigt und es wird die Möglichkeit geboten, einen Doktortitel zu erwerben (Spaß-Feature). Zudem wird der aktuelle Kontostand angezeigt. Über zwei Buttons besteht die Möglichkeit, die letzten Käufe in einem Kontoauszug anzuzeigen und das Konto aufzuladen.
 
 <div align="center">
