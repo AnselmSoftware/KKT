@@ -1,10 +1,19 @@
 Versionshistorie für das Kaffeekassentool
 --Version history for the coffee tool--
 -------------------------------------------------
-Created on 28.12.2022 - last change on 27.04.2025
+Created on 28.12.2022 - last change on 12.09.2025
 @author: Anselm Heuer
 Text is written in german - can easily be translated into english with translation programs :)
 -------------------------------------------------
+-------------------------------------------------
+Historie KKT v1.9 (veröffentlicht am 12.09.2025):
+- Nun werden neben dem Wochenumsatz auch die Einzahlungen einmal die Woche als Log in die Datenbank geschrieben.
+- Kleinere sprachliche Veränderungen von Texten und Bezeichnern und kleinere optische Veränderungen bei der Darstellung von Inhalten in Fenstern.
+- Die Bezeichnung der Nutzerkategorien im Hauptfenster kann nun über die Parameterdatei "KKT_Parameter"(.py) verändert werden.
+- Die Auflösung aller Fenster wird im Code angepasst und kontrolliert. Falls etwas bei der Anzeige schiefgelaufen ist, wird die Auflösung wieder angepasst.
+- Im Fenster zum Anlegen eines neuen Nutzers kann nun der Betreuer eines Studierenden direkt aus einer Liste gewählt werden.
+- Im Fenster "Warnung vor zu hohen Schulden" wurde der Text so angepasst, dass das KKT auch auf einem kleinen Bildschirm korrekt dargestellt wird.
+- Werden weniger als fünf Nutzer auf einer Seite angezeigt, bleibt die Breite der Buttons dennoch gleich und die Buttons expandieren nicht.
 -------------------------------------------------
 Historie KKT v1.8 (veröffentlicht am 27.04.2025):
 - Die Dateien des Kaffeekassentools für einen Upload auf GITHub übersichtlicher gestaltet und mehr Kommentare hinzugefügt.

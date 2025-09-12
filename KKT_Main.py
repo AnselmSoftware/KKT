@@ -1,7 +1,7 @@
 """
 Created on 05.12.2019
 @author: Anselm Heuer
-Version 1.8 - last change on 12.05.2025
+Version 1.9 - last change on 12.09.2025
 Software fuer die digitale Kaffeekueche - Das Tool zum Abrechnen von Produkten bei vielen Nutzern!
 --Software for the digital coffee kitchen - The tool for billing products for many users!--
 --Comments in functions are partly written in German - can easily be translated into english with translation programs :)--
@@ -14,6 +14,7 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 from gi.repository import GLib
+from gi.repository import GdkPixbuf
 # modules for graph creation
 from matplotlib.backends.backend_gtk3agg import (
     FigureCanvasGTK3Agg as FigureCanvas)
@@ -56,22 +57,26 @@ class MainWindow:
         # Die Namen der Objekte sind die Namen, die in der Glade-Datei angelegt wurden
         # Alle Fenster (Windows) und groesseren Container werden angelegt
         self.__WindowTop = builder.get_object("WindowTop")
-        self.__ContainerTop = builder.get_object("Container")
+        self.__ContainerTop = builder.get_object("ContainerTop")
         self.__WindowNutzer = builder.get_object("WindowNutzer")
         ViewportNutzer_Kategorie1 = builder.get_object("ViewportNutzer_Kategorie1")
         ViewportNutzer_Kategorie2 = builder.get_object("ViewportNutzer_Kategorie2")
         ViewportNutzer_Kategorie3 = builder.get_object("ViewportNutzer_Kategorie3")
         self.__WindowProgramminfo = builder.get_object("WindowProgramminfo")
         self.__WindowNutzerAnlegen = builder.get_object("WindowNutzerAnlegen")
-        ContainerTastatur = builder.get_object("ContainerTastatur")
+        ContainerNutzerAnlegen_Tastatur = builder.get_object("ContainerNutzerAnlegen_Tastatur")
+        ContainerNutzerAnlegen_Anmerkung = builder.get_object("ContainerNutzerAnlegenAnmerkung")
+        self.__ContainerNutzerAnlegen_Betreuer = builder.get_object("ContainerNutzerAnlegenBetreuer")
         self.__WindowNutzerLoeschen = builder.get_object("WindowNutzerLoeschen")
         self.__WindowKontoBestellung = builder.get_object("WindowKontoBestellung")
         ViewportKontoBestellung = builder.get_object("ViewportKontoBestellung")
         self.__WindowKontoAufladen = builder.get_object("WindowKontoAufladen")
         self.__WindowKontoauszug = builder.get_object("WindowKontoauszug")
         self.__ScrolledwindowKontoauszug = builder.get_object("ScrolledwindowKontoauszug")
+        ScrolledwindowKontoauszug_Text = builder.get_object("ScrolledwindowKontoauszug_Text")
         self.__WindowBestellabschluss = builder.get_object("WindowBestellabschluss")
         self.__WindowBestellabschlussZins = builder.get_object("WindowBestellabschlussZins")
+        ContainerBestellabschlussZins = builder.get_object("ContainerBestellabschlussZins")
         self.__ScrolledwindowBestellabschlussZins = builder.get_object("ScrolledwindowZins")
         self.__WindowBestellabschlussStopp = builder.get_object("WindowBestellabschlussStopp")
         self.__WindowBestandAendern = builder.get_object("WindowBestandAendern")
@@ -90,15 +95,14 @@ class MainWindow:
         LabelProgramminfo_Copyright = builder.get_object("Programminfo_Copyright")
         # Labels, Buttons und weitere Widgets zu Fenster "NutzerAnlegen"
         self.__LabelNutzerAnlegen_Geburtstag = builder.get_object("NutzerAnlegen_Geburtstag")
-        self.__LabelNutzerAnlegen_Anmerkung = builder.get_object("NutzerAnlegen_Anmerkung")
         self.__ButtonNutzerAnlegen_Kategorie1 = builder.get_object("NutzerAnlegen_Kategorie1")
         ButtonNutzerAnlegen_Kategorie2 = builder.get_object("NutzerAnlegen_Kategorie2")
         ButtonNutzerAnlegen_Kategorie3 = builder.get_object("NutzerAnlegen_Kategorie3")
         ButtonNutzerAnlegen_Hinzufuegen = builder.get_object("NutzerAnlegen_Hinzufuegen")
         ButtonNutzerAnlegen_Zurueck = builder.get_object("NutzerAnlegen_Zurueck")
         self.__EntryNutzerAnlegen_NutzerName = builder.get_object("NutzerAnlegen_NutzerName")
-        self.__EntryNutzerAnlegen_BetreuerName = builder.get_object("NutzerAnlegen_BetreuerName")
         self.__EntryNutzerAnlegen_Kalender = builder.get_object("NutzerAnlegen_Kalender")
+        self.__ExpanderNutzerAnlegen_BetreuerName = builder.get_object("NutzerAnlegen_BetreuerName")
         # Labels und Buttons zu Fenster "NutzerLoeschen"
         self.__LabelNutzerLoeschen_NutzerName = builder.get_object("NutzerLoeschen_NutzerName")
         self.__LabelNutzerLoeschen_Kontostand = builder.get_object("NutzerLoeschen_Kontostand")
@@ -144,6 +148,7 @@ class MainWindow:
         self.__LabelBestellabschluss_Kontostand = builder.get_object("Bestellabschluss_Kontostand")
         self.__LabelBestellabschluss_Produkte = builder.get_object("Bestellabschluss_Produkte")
         self.__LabelBestellabschluss_Kosten = builder.get_object("Bestellabschluss_Kosten")
+        ImageBestellabschluss_Gekauft = builder.get_object("ImageBestellabschluss_Gekauft")
         # Labels und Buttons zu Fenster "BestellabschlussZins"
         self.__LabelBestellabschlussZins_Limit = builder.get_object("BestellabschlussZins_Limit")
         self.__LabelBestellabschlussZins_Schulden = builder.get_object("BestellabschlussZins_Schulden")
@@ -152,10 +157,12 @@ class MainWindow:
         self.__LabelBestellabschlussZins_Gesamtkosten = builder.get_object("BestellabschlussZins_Gesamtkosten")
         ButtonBestellabschlussZins_Zurueck = builder.get_object("BestellabschlussZins_Zurueck")
         ButtonBestellabschlussZins_Kaufen = builder.get_object("BestellabschlussZins_Kaufen")
+        ImageBestellabschlussZins_Warnung = builder.get_object("ImageBestellabschlussZins_Warnung")
         # Labels und Buttons zu Fenster "BestellabschlussStopp"
         self.__LabelBestellabschlussStopp_Limit = builder.get_object("BestellabschlussStopp_Limit")
         self.__LabelBestellabschlussStopp_Schulden = builder.get_object("BestellabschlussStopp_Schulden")
         ButtonBestellabschlussStopp_Zurueck = builder.get_object("BestellabschlussStopp_Zurueck")
+        ImageBestellabschlussStopp_Warnung = builder.get_object("ImageBestellabschlussStopp_Warnung")
         # Labels, Buttons und weitere Widgets zu Fenster "BestandAendern"
         self.__LabelBestandAendern_Produkt = builder.get_object("BestandAendern_Produkt")
         self.__LabelBestandAendern_Bestand = builder.get_object("BestandAendern_Bestand")
@@ -170,21 +177,31 @@ class MainWindow:
         # Weitere benoetigte Widgets werden angelegt. Namenschema: 'NameWidget''NameDesFensters'_'Bezeichnung'
         self.__ImageNutzer_Status = builder.get_object("Nutzer_Status")
 
-        # --- Programmmanagement: Variablen um Einstellungen und Zustaende im Programm verwenden zu koennen
-        self.__Datenbank = DBVerwaltung.DBVerwaltung_SQL(KKT_Parameter.GUI_F2_DatenbankDatei)
-        self.__ButtonsNutzer = []  # Hier werden die Buttons fuer alle Nutzer gespeichert
-        self.__NutzerNeu = {"Name": "", "Kategorie": 0, "Betreuer": "", "Geb": [0, 0, 0]}  # Daten eines neuen Nutzers werden hier zwischengespeichert
-        self.__NutzerNamePlatzhalter = "Mustermann"
-        self.__ButtonsProdukt = []  # Hier werden die Buttons fuer alle Produkte gespeichert
-        self.__ProduktBestand = {}  # Bestand zu jedem Produkt intern gespeichert (alt/aktuell).
-        # Z. B. muss so nicht jedes Mal die Datenbank veraendert werden, wenn die Produkte noch nicht gekauft wurden
-        self.__Bestellung = []  # Welche Produkte wurden durch den Nutzer ausgewaehlt und sollen gekauft werden
-        self.__BestellungKosten = 0  # Wenn der Nutzer Produkte bestellt, werden hier die Kosten zusammengerechnet
-        self.__UmsatzWoche = 0  # Hier wird der Umsatz einer Woche gespeichert
-        self.__ZeitpunktLogStatus = datetime.today().date()  # Hier wird die letzte Ueberpruefung des LogStatus gespeichert
-        self.__ZeitpunktSpuelEingeloest = datetime.today() - timedelta(days=1)  # Hier wird gespeichert, wann die Spuelmaschine das letzte Mal ausgeraeumt wurde
-        self.__SpuelEingeloest = False  # Speichert die Einstellung, ob ein Nutzer den Gutschein fuer Spuelmaschine ausraeumen einloesen moechte
-        self.__TastaturFokusWidget = None  # Hier wird gespeichert welcher Entry den Fokus hat, um dort mit der Tastatur etwas hineinschreiben zu koennen
+        # --- GUI: Anpassung der Aufloesung aller Fenster und weiterer Widgets
+        self.__WindowTop.set_default_size(KKT_Parameter.GUI_F2_AufloesungBreite, KKT_Parameter.GUI_F2_AufloesungHoehe)
+        self.__WindowNutzer.set_size_request(KKT_Parameter.GUI_F2_AufloesungBreite, KKT_Parameter.GUI_F2_AufloesungHoehe)
+        self.__WindowNutzerAnlegen.set_size_request(KKT_Parameter.GUI_F2_AufloesungBreite, KKT_Parameter.GUI_F2_AufloesungHoehe)
+        self.__WindowKontoBestellung.set_size_request(KKT_Parameter.GUI_F2_AufloesungBreite, KKT_Parameter.GUI_F2_AufloesungHoehe)
+        self.__WindowKontoAufladen.set_size_request(KKT_Parameter.GUI_F2_AufloesungBreite, KKT_Parameter.GUI_F2_AufloesungHoehe)
+        self.__WindowKontoauszug.set_size_request(KKT_Parameter.GUI_F2_AufloesungBreite, KKT_Parameter.GUI_F2_AufloesungHoehe)
+        self.__WindowBestellabschluss.set_size_request(KKT_Parameter.GUI_F2_AufloesungBreite, KKT_Parameter.GUI_F2_AufloesungHoehe)
+        self.__WindowBestellabschlussZins.set_size_request(KKT_Parameter.GUI_F2_AufloesungBreite, KKT_Parameter.GUI_F2_AufloesungHoehe)
+        self.__WindowBestellabschlussStopp.set_size_request(KKT_Parameter.GUI_F2_AufloesungBreite, KKT_Parameter.GUI_F2_AufloesungHoehe)
+        # Anpassung der Aufloesung weiterer Widgets
+        self.__ScrolledwindowKontoauszug.set_size_request((KKT_Parameter.GUI_F2_AufloesungBreite - 30) * 0.56, (KKT_Parameter.GUI_F2_AufloesungHoehe - 177) * 0.98)
+        ScrolledwindowKontoauszug_Text.set_size_request((KKT_Parameter.GUI_F2_AufloesungBreite - 30) * 0.44, -1)
+        ContainerBestellabschlussZins.set_size_request(KKT_Parameter.GUI_F2_AufloesungBreite * 0.56, -1)
+        if GdkPixbuf.Pixbuf.get_file_info(KKT_Parameter.GUI_F2_WarnungIamge)[2]/KKT_Parameter.GUI_F2_AufloesungHoehe > 0.23:
+            ImageWarnung = GdkPixbuf.Pixbuf.new_from_file_at_size(KKT_Parameter.GUI_F2_WarnungIamge,
+                                                                  GdkPixbuf.Pixbuf.get_file_info(KKT_Parameter.GUI_F2_WarnungIamge)[1],
+                                                                  KKT_Parameter.GUI_F2_AufloesungHoehe * 0.23)
+            ImageBestellabschlussZins_Warnung.set_from_pixbuf(ImageWarnung)
+            ImageBestellabschlussStopp_Warnung.set_from_pixbuf(ImageWarnung)
+        if GdkPixbuf.Pixbuf.get_file_info(KKT_Parameter.GUI_F2_GekauftIamge)[2]/KKT_Parameter.GUI_F2_AufloesungHoehe > 0.355:
+            ImageGekauft = GdkPixbuf.Pixbuf.new_from_file_at_size(KKT_Parameter.GUI_F2_GekauftIamge,
+                                                                  GdkPixbuf.Pixbuf.get_file_info(KKT_Parameter.GUI_F2_GekauftIamge)[1],
+                                                                  KKT_Parameter.GUI_F2_AufloesungHoehe * 0.355)
+            ImageBestellabschluss_Gekauft.set_from_pixbuf(ImageGekauft)
 
         # --- GUI: Anpassungen von Widgets aus der Glade-Datei
         # Fuer Buttons im "NutzerAnlegen"-Fenster wird eine eindeutige ID gesetzt
@@ -204,9 +221,9 @@ class MainWindow:
         # Entsprechend wird das Label aus der Glade-Datei gelesen und modifiziert und somit wird der Text aus der Glade-Datei ueberschrieben.
         # Mithilfe der "#" (siehe Glade-Datei) wird innerhalb eines Labels markiert, dass eine Ueberschreibung mit einer Variable erfolgen muss.
         # Text von Labels in Fenster "Nutzer" setzen
-        LabelNutzer_Kategorie1.set_label("Permanente")
-        LabelNutzer_Kategorie2.set_label("Wiss. Mitarbeiter")
-        LabelNutzer_Kategorie3.set_label("Studierende")
+        LabelNutzer_Kategorie1.set_label(KKT_Parameter.GUI_F1_NutzerKategorieBezeichnung_1)
+        LabelNutzer_Kategorie2.set_label(KKT_Parameter.GUI_F1_NutzerKategorieBezeichnung_2)
+        LabelNutzer_Kategorie3.set_label(KKT_Parameter.GUI_F1_NutzerKategorieBezeichnung_3)
         ButtonNutzer_NutzerAnlegen.get_child().set_markup("<b>{}</b>".format(ButtonNutzer_NutzerAnlegen.get_child().get_label()))
         # Text von Labels in Fenster "Programminfo" setzen
         LabelProgramminfo_GitHub.set_label(KKT_Parameter.GUI_F3_LinkGitHub)
@@ -214,9 +231,9 @@ class MainWindow:
         LabelProgramminfo_Version.set_label("{}".format(TempLabel_Version))
         LabelProgramminfo_Copyright.set_label("{}".format(LabelProgramminfo_Copyright.get_label().replace("#", str(KKT_Parameter.GUI_F3_Copyright), 1)))
         # Text von Labels in Fenster "NutzerAnlegen" setzen
-        self.__ButtonNutzerAnlegen_Kategorie1.get_child().set_markup("<b>{}</b>".format("Permanente"))
-        ButtonNutzerAnlegen_Kategorie2.get_child().set_markup("<b>{}</b>".format("Wiss. Mitarbeiter"))
-        ButtonNutzerAnlegen_Kategorie3.get_child().set_markup("<b>{}</b>".format("Studierende"))
+        self.__ButtonNutzerAnlegen_Kategorie1.get_child().set_markup("<b>{}</b>".format(KKT_Parameter.GUI_F1_NutzerKategorieBezeichnung_1))
+        ButtonNutzerAnlegen_Kategorie2.get_child().set_markup("<b>{}</b>".format(KKT_Parameter.GUI_F1_NutzerKategorieBezeichnung_2))
+        ButtonNutzerAnlegen_Kategorie3.get_child().set_markup("<b>{}</b>".format(KKT_Parameter.GUI_F1_NutzerKategorieBezeichnung_3))
         ButtonNutzerAnlegen_Zurueck.get_child().set_markup("<b>{}</b>".format(ButtonNutzerAnlegen_Zurueck.get_child().get_label()))
         ButtonNutzerAnlegen_Hinzufuegen.get_child().set_markup("<b>{}</b>".format(ButtonNutzerAnlegen_Hinzufuegen.get_child().get_label()))
         # Text von Labels in Fenster "NutzerLoeschen" setzen
@@ -224,7 +241,7 @@ class MainWindow:
         ButtonNutzerLoeschen_NEIN.get_child().set_markup("<b>{}</b>".format(ButtonNutzerLoeschen_NEIN.get_child().get_label()))
         ButtonNutzerLoeschen_JA.get_child().set_markup("<b>{}</b>".format(ButtonNutzerLoeschen_JA.get_child().get_label()))
         # Text von Labels in Fenster "KontoBestellung" setzen
-        self.__LabelKontoBestellung_Produktanzahl.set_label(str(len(self.__Bestellung)))
+        self.__LabelKontoBestellung_Produktanzahl.set_label("0")
         self.__ButtonKontoBestellung_Kaufen.get_child().set_markup("<b>{}</b>".format(self.__ButtonKontoBestellung_Kaufen.get_child().get_label()))
         self.__ButtonKontoBestellung_Korrektur.get_child().set_markup("<b>{}</b>".format(self.__ButtonKontoBestellung_Korrektur.get_child().get_label()))
         TempLabel_DrTitel = self.__ButtonKontoBestellung_DrTitel.get_child().get_label().replace("#", str(KKT_Parameter.GUI_F1_DrTitelKosten), 1)
@@ -264,58 +281,77 @@ class MainWindow:
         ButtonBestandAendern_Reduzieren.get_child().set_markup("<b>{}</b>".format(ButtonBestandAendern_Reduzieren.get_child().get_label()))
         # Tastatur implementieren
         Tastatur = GUIElemente.Widget_Tastatur()
-        ContainerTastatur.pack_start(Tastatur, False, True, 0)
+        ContainerNutzerAnlegen_Tastatur.pack_start(Tastatur, False, True, 0)
         Tastatur.connect("TastaturZahl", self.__TastaturZahl)
         Tastatur.connect("TastaturBuchstabe", self.__TastaturZeichen)
         Tastatur.connect("TastaturSonderzeichen", self.__TastaturZeichen)
         Tastatur.connect("TastaturBackspace", self.__TastaturBackspace)
         # Sonstige Anpassungen an GUI-Objekten
-        self.__ContainerTop.add(self.__WindowNutzer)
-        self.__ContainerTop.add(self.__WindowNutzerAnlegen)
-        self.__ContainerTop.add(self.__WindowKontoBestellung)
-        self.__ContainerTop.add(self.__WindowBestellabschluss)
-        self.__ContainerTop.add(self.__WindowBestellabschlussZins)
-        self.__ContainerTop.add(self.__WindowBestellabschlussStopp)
-        self.__ContainerTop.add(self.__WindowKontoAufladen)
-        self.__ContainerTop.add(self.__WindowKontoauszug)
+        self.__ContainerTop.pack_start(self.__WindowNutzer, True, True, 0)
+        self.__ContainerTop.pack_start(self.__WindowNutzerAnlegen, True, True, 0)
+        self.__ContainerTop.pack_start(self.__WindowKontoBestellung, True, True, 0)
+        self.__ContainerTop.pack_start(self.__WindowKontoAufladen, True, True, 0)
+        self.__ContainerTop.pack_start(self.__WindowKontoauszug, True, True, 0)
+        self.__ContainerTop.pack_start(self.__WindowBestellabschluss, True, True, 0)
+        self.__ContainerTop.pack_start(self.__WindowBestellabschlussZins, True, True, 0)
+        self.__ContainerTop.pack_start(self.__WindowBestellabschlussStopp, True, True, 0)
         self.__WindowProgramminfo.connect("delete-event", self.__delete_event_Programminfo)
         self.__WindowNutzerLoeschen.connect("delete-event", self.__delete_event_NutzerLoeschen)
         self.__WindowBestandAendern.connect("delete-event", self.__delete_event_BestandAendern)
         self.__EntryNutzerAnlegen_NutzerName.connect("focus-in-event", self.__SchreibeTastaturFokusWidget)
         self.__EntryNutzerAnlegen_NutzerName.connect("focus-out-event", self.__SchreibeTastaturFokusWidget)
-        self.__EntryNutzerAnlegen_BetreuerName.connect("focus-in-event", self.__SchreibeTastaturFokusWidget)
-        self.__EntryNutzerAnlegen_BetreuerName.connect("focus-out-event", self.__SchreibeTastaturFokusWidget)
 
         # --- GUI: Erweiterung der GUI (aus Glade-Datei) um weitere Widgets
         self.__GridNutzer_Kategorie1 = Gtk.Grid()
         self.__GridNutzer_Kategorie1.set_column_spacing(4)
         self.__GridNutzer_Kategorie1.set_row_spacing(4)
-        self.__GridNutzer_Kategorie1.set_column_homogeneous(True)
         self.__GridNutzer_Kategorie2 = Gtk.Grid()
         self.__GridNutzer_Kategorie2.set_column_spacing(4)
         self.__GridNutzer_Kategorie2.set_row_spacing(4)
-        self.__GridNutzer_Kategorie2.set_column_homogeneous(True)
         self.__GridNutzer_Kategorie3 = Gtk.Grid()
         self.__GridNutzer_Kategorie3.set_column_spacing(4)
         self.__GridNutzer_Kategorie3.set_row_spacing(4)
-        self.__GridNutzer_Kategorie3.set_column_homogeneous(True)
         ViewportNutzer_Kategorie1.add(self.__GridNutzer_Kategorie1)
         ViewportNutzer_Kategorie2.add(self.__GridNutzer_Kategorie2)
         ViewportNutzer_Kategorie3.add(self.__GridNutzer_Kategorie3)
+        self.__LabelNutzerAnlegen_Anmerkung = GUIElemente.Widget_BlinkerLabel("")
+        ContainerNutzerAnlegen_Anmerkung.pack_start(self.__LabelNutzerAnlegen_Anmerkung, False, True, 0)
         GridKontoBestellung_Produkt = Gtk.Grid()
         GridKontoBestellung_Produkt.set_column_spacing(10)
+        GridKontoBestellung_Produkt.set_column_homogeneous(False)
         GridKontoBestellung_Produkt.set_row_spacing(6)
         ViewportKontoBestellung.add(GridKontoBestellung_Produkt)
 
-        # --- GUI: Anlegen der Buttons fuer Nutzer und Produkte
+        # --- Programmmanagement: Variablen um Einstellungen und Zustaende im Programm verwenden zu koennen
+        self.__Datenbank = DBVerwaltung.DBVerwaltung_SQL(KKT_Parameter.GUI_F2_DatenbankDatei)
+        self.__ButtonsNutzer = []  # Hier werden die Buttons fuer alle Nutzer gespeichert
+        self.__ButtonsNutzerDimension = [(KKT_Parameter.GUI_F2_AufloesungBreite - 4 * 5) / 5, 110]  # Dimension des Buttons basierend auf Dimension des Hauptfensters
+        self.__ButtonsBetreuer = []  # Hier werden die Buttons fuer alle Betreuer gespeichert
+        self.__NutzerNeu = {"Name": "", "Kategorie": 0, "Betreuer": "", "Geb": [0, 0, 0]}  # Daten eines neuen Nutzers werden hier zwischengespeichert
+        self.__NutzerNamePlatzhalter = "Mustermann"
+        self.__ButtonsProdukt = []  # Hier werden die Buttons fuer alle Produkte gespeichert
+        self.__ButtonsProduktDimension = [KKT_Parameter.GUI_F2_AufloesungBreite / 5 - 11, 70]  # Dimension des Buttons basierend auf Dimension des Hauptfensters
+        self.__ProduktBestand = {}  # Bestand zu jedem Produkt intern gespeichert (alt/aktuell).
+        # Z. B. muss so nicht jedes Mal die Datenbank veraendert werden, wenn die Produkte noch nicht gekauft wurden
+        self.__Bestellung = []  # Welche Produkte wurden durch den Nutzer ausgewaehlt und sollen gekauft werden
+        self.__BestellungKosten = 0  # Wenn der Nutzer Produkte bestellt, werden hier die Kosten zusammengerechnet
+        self.__UmsatzWoche = 0  # Hier wird der Umsatz einer Woche gespeichert
+        self.__EinzahlungenWoche = 0  # Hier werden alle Einzahlungen einer Woche gespeichert
+        self.__ZeitpunktLogStatus = datetime.today().date()  # Hier wird die letzte Ueberpruefung des LogStatus gespeichert
+        self.__ZeitpunktSpuelEingeloest = datetime.today() - timedelta(days=1)  # Hier wird gespeichert, wann die Spuelmaschine das letzte Mal ausgeraeumt wurde
+        self.__SpuelEingeloest = False  # Speichert die Einstellung, ob ein Nutzer den Gutschein fuer Spuelmaschine ausraeumen einloesen moechte
+        self.__TastaturFokusWidget = None  # Hier wird gespeichert welcher Entry den Fokus hat, um dort mit der Tastatur etwas hineinschreiben zu koennen
+
+        # --- GUI: Anlegen der Buttons fuer Nutzer, Betreuer und Produkte
         self.__AnlegenButtonsNutzer()
+        self.__AnlegenButtonsBetreuer()
         # Anlegen der Buttons fuer die Produkte
         GridPos = [0, 0]  # Hiermit wird die Position des Buttons in dem GridWidget festgelegt
         for Produkt in self.__Datenbank.LeseAlleZeilen("Bestand"):
             if Produkt[3] == 0:  # Ist das Produkt noch aktiv und wird in der Kaffeekueche angeboten?
                 LabelProdukt = Produkt[1] + "\n" + str(Produkt[5]) + " €"
                 LabelBestand = "Bestand:  "
-                self.__ButtonsProdukt.append(GUIElemente.Widget_Produktanzeige(self.__WindowTop.get_size()[0], self.on_ButtonProdukt_clicked,
+                self.__ButtonsProdukt.append(GUIElemente.Widget_Produktanzeige(self.__ButtonsProduktDimension, self.on_ButtonProdukt_clicked,
                                                                                Produkt[1], LabelProdukt, LabelBestand, Produkt[2],
                                                                                KKT_Parameter.GUI_F2_ButtonProduktPressedZeitspanne))
                 self.__ButtonsProdukt[-1].connect("ButtonXsPressed", self.__AnzeigeWindowBestandAendern)
@@ -327,13 +363,21 @@ class MainWindow:
                 else:
                     GridPos[0] = 0
                     GridPos[1] += 1
+        # Bei mehr als einer Zeile werden Buttons homogen angeordnet
+        if len(GridKontoBestellung_Produkt.get_children()) > 5:
+            GridKontoBestellung_Produkt.set_column_homogeneous(True)
 
         # --- Initialisierung der GUI wird nun abgeschlossen
         self.__ThreadFehler = False      # Tritt im Thread (Timer) zur Laufzeit der GUI ein Fehler auf, wechselt diese Variable auf True
         GLib.timeout_add(KKT_Parameter.GUI_F2_VerwaltungInterval * 1000, self.__StarteInterneVerwaltung)
         # Log-Nachricht vorbereiten
-        LogNachricht = "Die GUI wurde neu gestartet. Versionsnummer: KKT v{}".format(str(KKT_Parameter.GUI_F3_Version))
+        LogNachricht = "Das Kaffeekassentool wurde neu gestartet. Versionsnummer: KKT v{}".format(str(KKT_Parameter.GUI_F3_Version))
         self.__Datenbank.SchreibeNeueZeilen("Log", "zeitpunkt, nachricht", zeitpunkt="datetime('now','localtime')", nachricht=LogNachricht)
+        # Ueberpruefen, ob sich die Aufloesung (Breite) des Hauptfensters veraendert hat
+        if self.__WindowTop.get_size()[0] != KKT_Parameter.GUI_F2_AufloesungBreite:
+            LogNachricht = "Die Soll-Aufloesung (Breite {}) konnte nicht eingehalten werden! Breite ist {}.".format(str(KKT_Parameter.GUI_F2_AufloesungBreite),
+                                                                                                                str(self.__WindowTop.get_size()[0]))
+            self.__Datenbank.SchreibeNeueZeilen("Log", "zeitpunkt, nachricht", zeitpunkt="datetime('now','localtime')", nachricht=LogNachricht)
 
         # --- GUI: Anzeige aller Fenster in der GUI auf nicht sichtbar stellen bis auf Uebersicht der Nutzer
         self.__AnzeigeWindowNutzer()
@@ -344,8 +388,13 @@ class MainWindow:
         self.__WindowBestellabschlussStopp.hide()
         self.__WindowKontoAufladen.hide()
         self.__WindowKontoauszug.hide()
+        # Ueberpruefen, ob sich die Aufloesung (Hoehe) des Hauptfensters veraendert hat
+        if self.__WindowTop.get_size()[1] != KKT_Parameter.GUI_F2_AufloesungHoehe:
+            LogNachricht = "Die Soll-Aufloesung (Hoehe {}) konnte nicht eingehalten werden! Hoehe ist {}.".format(str(KKT_Parameter.GUI_F2_AufloesungHoehe),
+                                                                                                                str(self.__WindowTop.get_size()[1]))
+            self.__Datenbank.SchreibeNeueZeilen("Log", "zeitpunkt, nachricht", zeitpunkt="datetime('now','localtime')", nachricht=LogNachricht)
 
-    # ------------------------- Konstruktor fuer ButtonsNutzer
+    # ----------- Konstruktor fuer Buttons Nutzer und Betreuer
     # -------------------------------------------------------
     def __AnlegenButtonsNutzer(self):
         """Mit dieser Methode werden die Buttons fuer alle Nutzer angelegt. Die Buttons werden in ein "Grid"-Widget
@@ -356,12 +405,15 @@ class MainWindow:
             for Button in self.__ButtonsNutzer:
                 Button.destroy()
             self.__ButtonsNutzer.clear()
+        self.__GridNutzer_Kategorie1.set_column_homogeneous(False)
+        self.__GridNutzer_Kategorie2.set_column_homogeneous(False)
+        self.__GridNutzer_Kategorie3.set_column_homogeneous(False)
         # Anlegen der Buttons und einsortieren in ein Gitternetz ("Grid"-Widget)
         Counter = 0
         for Kategorie in self.__LeseNutzerNamenAusDatenbank():
             GridPos = [0, 0]  # Hiermit wird die Position des Buttons in dem "Grid"-Widget festgelegt
             for NutzerName in Kategorie:
-                self.__ButtonsNutzer.append(GUIElemente.Widget_NutzerButton(self.__WindowTop.get_size()[0],
+                self.__ButtonsNutzer.append(GUIElemente.Widget_NutzerButton(self.__ButtonsNutzerDimension,
                                                                             NutzerName, KKT_Parameter.GUI_F2_ButtonNutzerPressedZeitspanne))
                 # Bei Nutzern, die schon lange nicht mehr aktiv waren, wird ein eingefaerbtes "Zuletzt-Aktiv"-Datum hinzugefuegt
                 NutzerAktivitaet = self.__Datenbank.LeseSpezielleZeilen("Nutzer", 'name="{}"'.format(NutzerName))[0][5]
@@ -390,6 +442,32 @@ class MainWindow:
             GridPos[0] = 0
             GridPos[1] = 0
             Counter += 1
+        # Bei mehr als einer Zeile werden Buttons homogen angeordnet
+        if len(self.__GridNutzer_Kategorie1.get_children()) > 5:
+            self.__GridNutzer_Kategorie1.set_column_homogeneous(True)
+        if len(self.__GridNutzer_Kategorie2.get_children()) > 5:
+            self.__GridNutzer_Kategorie2.set_column_homogeneous(True)
+        if len(self.__GridNutzer_Kategorie3.get_children()) > 5:
+            self.__GridNutzer_Kategorie3.set_column_homogeneous(True)
+
+    def __AnlegenButtonsBetreuer(self):
+        """Mit dieser Methode werden die Buttons fuer alle Betreuer angelegt. Die Buttons werden in einem "Expander"-Widget
+         in dem Fenster WindowNutzer einsortiert. Ueber diese Buttons kann ein Betreuer fuer einen neuen Nutzer aus der
+         Nutzer_Kategorie3 festgelegt werden.
+        """
+        # Zunaechst werden die alten Buttons zerstoert und die Liste geleert
+        if len(self.__ButtonsBetreuer) != 0:
+            for Button in self.__ButtonsBetreuer:
+                Button.destroy()
+            self.__ButtonsBetreuer.clear()
+        # Anlegen der Buttons und einsortieren in die Liste ("Expander+Box"-Widget)
+        for BetreuerName in self.__LeseBetreuerNamenAusDatenbank():
+            self.__ButtonsBetreuer.append(GUIElemente.Widget_BetreuerButton(BetreuerName))
+            self.__ButtonsBetreuer[-1].get_child().set_markup("<b>{}</b>".format(BetreuerName))
+            # Weitere Anpassungen des Buttons
+            self.__ButtonsBetreuer[-1].connect("toggled", self.on_ToggleButtonBetreuer_clicked)
+            # Einsortieren in die Liste ("Expander+Box"-Widget)
+            self.__ContainerNutzerAnlegen_Betreuer.pack_start(self.__ButtonsBetreuer[-1], False, True, 0)
 
     # --------------- Hauptfunktionen zum MainWindow
     # ---------------------------------------------
@@ -408,6 +486,7 @@ class MainWindow:
     def __AnzeigeWindowNutzer(self):
         # Zeigt (wieder) das Hauptfenster mit allen Nutzern.
         # Sorgt auch dafuer, dass die Geburtstagsanzeige korrekt funktioniert.
+        self.__WindowTop.resize(KKT_Parameter.GUI_F2_AufloesungBreite, KKT_Parameter.GUI_F2_AufloesungHoehe)
         if self.__LabelNutzer_Geburtstage.get_visible():
             self.__WindowNutzer.show_all()
         else:
@@ -437,9 +516,10 @@ class MainWindow:
         self.__ButtonNutzerAnlegen_Kategorie1.set_active(True)
         self.__EntryNutzerAnlegen_NutzerName.set_text("M.  " + self.__NutzerNamePlatzhalter)
         self.__EntryNutzerAnlegen_NutzerName.grab_focus()
-        self.__EntryNutzerAnlegen_BetreuerName.set_text("")
+        self.__ExpanderNutzerAnlegen_BetreuerName.set_expanded(False)
+        self.__ExpanderNutzerAnlegen_BetreuerName.set_sensitive(False)
         self.__LabelNutzerAnlegen_Geburtstag.set_label("XX.XX.XXXX")
-        self.__LabelNutzerAnlegen_Anmerkung.set_label("")
+        self.__LabelNutzerAnlegen_Anmerkung.SchreibeLabel("")
         self.__NutzerNeu["Name"] = ""
         self.__NutzerNeu["Kategorie"] = 0
         self.__NutzerNeu["Betreuer"] = ""
@@ -458,20 +538,36 @@ class MainWindow:
         if GUIButton.get_active():
             if GUIButton.get_name() == "NuID1":
                 self.__NutzerNeu["Kategorie"] = 0
-                self.__EntryNutzerAnlegen_BetreuerName.set_can_focus(False)
-                self.__EntryNutzerAnlegen_BetreuerName.set_text("")
-                self.__LabelNutzerAnlegen_Anmerkung.set_label("")
+                self.__ExpanderNutzerAnlegen_BetreuerName.set_expanded(False)
+                self.__ExpanderNutzerAnlegen_BetreuerName.set_sensitive(False)
+                self.__LabelNutzerAnlegen_Anmerkung.SchreibeLabel("")
             if GUIButton.get_name() == "NuID2":
                 self.__NutzerNeu["Kategorie"] = 1
-                self.__EntryNutzerAnlegen_BetreuerName.set_can_focus(False)
-                self.__EntryNutzerAnlegen_BetreuerName.set_text("")
-                self.__LabelNutzerAnlegen_Anmerkung.set_label("")
+                self.__ExpanderNutzerAnlegen_BetreuerName.set_expanded(False)
+                self.__ExpanderNutzerAnlegen_BetreuerName.set_sensitive(False)
+                self.__LabelNutzerAnlegen_Anmerkung.SchreibeLabel("")
             if GUIButton.get_name() == "NuID3":
                 self.__NutzerNeu["Kategorie"] = 2
-                self.__EntryNutzerAnlegen_BetreuerName.set_can_focus(True)
-                self.__EntryNutzerAnlegen_BetreuerName.set_text(self.__NutzerNamePlatzhalter)
-                self.__EntryNutzerAnlegen_BetreuerName.grab_focus()  # Nur bei Studi muss und darf ein Betreuer angegeben werden
-                self.__LabelNutzerAnlegen_Anmerkung.set_label("Anmerkung: Betreuer angeben.")
+                self.__NutzerNeu["Betreuer"] = ""
+                self.__ExpanderNutzerAnlegen_BetreuerName.set_expanded(True)
+                self.__ExpanderNutzerAnlegen_BetreuerName.set_sensitive(True)
+                # Ansicht der ToggleButtons fuer die Betreuer wird zurueckgesetzt
+                for Button in self.__ButtonsBetreuer:
+                    if Button.get_active():
+                        Button.set_active(False)
+                self.__LabelNutzerAnlegen_Anmerkung.SchreibeLabel("--> Einen Betreuer auswählen.")
+
+    def on_ToggleButtonBetreuer_clicked(self, GUIButton):
+        # Wenn der Bediener einen ToggleButton auswaehlt, wird diese Methode aufgerufen.
+        if GUIButton.get_active():
+            self.__NutzerNeu["Betreuer"] = GUIButton.LeseID()
+            for Button in self.__ButtonsBetreuer:
+                if Button is GUIButton:
+                    continue
+                Button.set_active(False)
+        else:
+            if self.__NutzerNeu["Betreuer"] == GUIButton.LeseID():
+                self.__NutzerNeu["Betreuer"] = ""
 
     def on_CalenderDate_changed(self, GUIObjekt):
         # Wenn der Bediener ein Datum im Kalender auswaehlt, wird diese Methode aufgerufen.
@@ -493,12 +589,14 @@ class MainWindow:
             # Zu kurze Namen werden nicht akzeptiert
             self.__EntryNutzerAnlegen_NutzerName.set_text("")
             self.__EntryNutzerAnlegen_NutzerName.grab_focus()
-            self.__LabelNutzerAnlegen_Anmerkung.set_label("Anmerkung: Name zu kurz.")
+            self.__LabelNutzerAnlegen_Anmerkung.SchreibeLabel("--> Der Name ist zu kurz.")
+            self.__LabelNutzerAnlegen_Anmerkung.BlinkenLabel()
         elif self.__EntryNutzerAnlegen_NutzerName.get_text().find(self.__NutzerNamePlatzhalter) != -1:
             # Mustermann als Name wird nicht akzeptiert
             self.__EntryNutzerAnlegen_NutzerName.set_text("")
             self.__EntryNutzerAnlegen_NutzerName.grab_focus()
-            self.__LabelNutzerAnlegen_Anmerkung.set_label("Anmerkung: Name Mustermann nicht akzeptiert.")
+            self.__LabelNutzerAnlegen_Anmerkung.SchreibeLabel("--> Der Name Mustermann wird nicht akzeptiert!")
+            self.__LabelNutzerAnlegen_Anmerkung.BlinkenLabel()
         else:
             # Pruefen, ob es den Namen schon in der Datenbank gibt
             NutzerNameVergeben = False
@@ -506,31 +604,17 @@ class MainWindow:
                 for NutzerName in Kategorie:
                     if NutzerName.find(self.__EntryNutzerAnlegen_NutzerName.get_text()) != -1:
                         NutzerNameVergeben = True
-                        self.__LabelNutzerAnlegen_Anmerkung.set_label("Anmerkung: Der Name existiert schon.")
+                        self.__LabelNutzerAnlegen_Anmerkung.SchreibeLabel("--> Der Name existiert schon.")
+                        self.__LabelNutzerAnlegen_Anmerkung.BlinkenLabel()
                         break
             if not NutzerNameVergeben:
-                # Bei Studenten wird ueberprueft, ob der angegebene Betreuer existiert
-                if self.__EntryNutzerAnlegen_BetreuerName.get_can_focus():  # Wenn man Studi ausgewaehlt hat, ist das erfuellt
-                    if len(self.__EntryNutzerAnlegen_BetreuerName.get_text()) <= 2 or not self.__EntryNutzerAnlegen_BetreuerName.get_text()[:1].isupper():
-                        self.__EntryNutzerAnlegen_BetreuerName.set_text("")
-                        self.__EntryNutzerAnlegen_BetreuerName.grab_focus()
-                        self.__LabelNutzerAnlegen_Anmerkung.set_label("Anmerkung: Betreuer existiert nicht.")
-                    else:  # Nun wird ueberprueft, ob es den Betreuer ueberhaupt gibt
-                        BetreuerExistiert = False
-                        CounterKategorie = 0
-                        for Kategorie in self.__LeseNutzerNamenAusDatenbank():
-                            if CounterKategorie == 2: break
-                            for NutzerName in Kategorie:
-                                if NutzerName.find(self.__EntryNutzerAnlegen_BetreuerName.get_text()) != -1:
-                                    BetreuerExistiert = True
-                                    break
-                            CounterKategorie += 1
-                        if BetreuerExistiert:  # Namen speichern
-                            AngabenKorrekt = True
-                        else:
-                            self.__EntryNutzerAnlegen_BetreuerName.set_text("")
-                            self.__EntryNutzerAnlegen_BetreuerName.grab_focus()
-                            self.__LabelNutzerAnlegen_Anmerkung.set_label("Anmerkung: Betreuer existiert nicht.")
+                # Bei Studenten wird ueberprueft, ob ein Betreuer ausgewaehlt wurde
+                if self.__NutzerNeu["Kategorie"] == 2:   # Wenn man Studi ausgewaehlt hat, ist das erfuellt
+                    if self.__NutzerNeu["Betreuer"] != "":
+                        AngabenKorrekt = True
+                    else:
+                        self.__LabelNutzerAnlegen_Anmerkung.SchreibeLabel("--> Einen Betreuer auswählen!")
+                        self.__LabelNutzerAnlegen_Anmerkung.BlinkenLabel()
                 else:
                     AngabenKorrekt = True
         # Nutzer anlegen, sofern die Eingaben nicht fehlerhaft sind.
@@ -539,10 +623,9 @@ class MainWindow:
             Geburtstag = ""
             if not self.__NutzerNeu["Geb"][0] == 0:  # Wenn ein Geburtstag uebergeben wurde
                 Geburtstag = str(self.__NutzerNeu["Geb"])[1:-1].replace(", ", ".")
-            if self.__EntryNutzerAnlegen_BetreuerName.get_can_focus():  # Wenn die Kategorie Studierende ausgewaehlt wurde, dann ist das erfuellt
-                self.__NutzerNeu["Betreuer"] = "[" + self.__EntryNutzerAnlegen_BetreuerName.get_text() + "]"
+            if self.__NutzerNeu["Kategorie"] == 2:  # Wenn die Kategorie Studierende ausgewaehlt wurde, dann ist das erfuellt
                 self.__Datenbank.SchreibeNeueZeilen("Nutzer", "name, kontostand, rang, Geburtstag, LetzteAktivitaet",
-                                                    name=self.__NutzerNeu["Name"] + " " + self.__NutzerNeu["Betreuer"], kontostand=0,
+                                                    name=self.__NutzerNeu["Name"] + " [" + self.__NutzerNeu["Betreuer"] + "]", kontostand=0,
                                                     rang=self.__NutzerNeu["Kategorie"], Geburtstag=Geburtstag, LetzteAktivitaet="datetime('now','localtime')")
             else:
                 self.__Datenbank.SchreibeNeueZeilen("Nutzer", "name, kontostand, rang, Geburtstag, LetzteAktivitaet",
@@ -553,7 +636,9 @@ class MainWindow:
             self.__Datenbank.SchreibeNeueZeilen("Log", "zeitpunkt, nachricht", zeitpunkt="datetime('now','localtime')", nachricht=LogNachricht)
             # Abschliessen der GUI-Anzeige
             # Anmerkung: Alle Variablen zum "Nutzer anlegen" usw. werden zurueckgesetzt, wenn ein Klick auf ButtonNutzer_NutzerAnlegen erfolgt
-            self.__AnlegenButtonsNutzer()  # Neuer Name im System und damit muessen die Buttons aktualisiert werden
+            # Da ein neuer Name im System ist, muessen die Buttons aktualisiert werden
+            self.__AnlegenButtonsNutzer()
+            self.__AnlegenButtonsBetreuer()
             self.__WindowNutzerAnlegen.hide()
             self.__AnzeigeWindowNutzer()
 
@@ -642,6 +727,7 @@ class MainWindow:
         # Abschliessen der GUI-Anzeige
         # Buttons fuer alle Nutzer muessen neu erstellt werden, weil ein Nutzer entfernt wurde.
         self.__AnlegenButtonsNutzer()
+        self.__AnlegenButtonsBetreuer()
         self.__WindowNutzerLoeschen.hide()
         self.__AnzeigeWindowNutzer()
 
@@ -748,7 +834,7 @@ class MainWindow:
             self.__BestellungKosten = round(self.__BestellungKosten + Zinskosten, 2)
             # Zeichnen des Zinsgraphen
             Graph = Figure()
-            Graph.subplots_adjust(left=0.20, bottom=0.19, right=0.97, top=0.96)
+            Graph.subplots_adjust(left=0.21, bottom=0.20, right=0.97, top=0.97)
             GraphIntern = Graph.add_subplot(111)
             Intervall = np.arange(round(abs(KKT_Parameter.GUI_F1_MaxSchulden) * (2 / 3), 0), round(abs(KKT_Parameter.GUI_F1_MaxSchulden) + 1, 0), 1)
             Intervall_Skalentransformation = (-Intervall - KKT_Parameter.GUI_F1_MaxSchulden * (2 / 3)) / \
@@ -893,6 +979,7 @@ class MainWindow:
         Kontostand = self.__Datenbank.LeseSpezielleZeilen("Nutzer", 'name="{}"'.format(self.__LabelKontoBestellung_NutzerName.get_label()))[0][2]
         KontostandNeu = round(Kontostand + float(self.__LabelKontoAufladen_Gesamtbetrag.get_label()), 3)
         self.__Datenbank.UeberschreibeZeile("Nutzer", 'name="{}"'.format(self.__LabelKontoBestellung_NutzerName.get_label()), kontostand=KontostandNeu)
+        self.__EinzahlungenWoche += round(float(self.__LabelKontoAufladen_Gesamtbetrag.get_label()), 3)
         # Die Aktivitaet des Nutzers in Datenbank neu setzen
         self.__Datenbank.UeberschreibeZeile("Nutzer", 'name="{}"'.format(self.__LabelKontoBestellung_NutzerName.get_label()),
                                             LetzteAktivitaet="datetime('now','localtime')")
@@ -1189,6 +1276,23 @@ class MainWindow:
                 NutzerNamenSortiert[2].append(Nutzer[1])
         return NutzerNamenSortiert
 
+    def __LeseBetreuerNamenAusDatenbank(self):
+        # Hier werden die Nutzer aus der Datenbank gelesen, die als Betreuer infrage kommen und alphabetisch sortiert.
+        BetreuerNamenSortiert = []  # Sortiert nach Alphabet
+        NutzerGesamt = self.__Datenbank.LeseAlleZeilen("Nutzer")
+        for Nutzer in NutzerGesamt:
+            if Nutzer[1] == "Diebstahlkonto":  # Kommt als Betreuer nicht infrage
+                continue
+            elif Nutzer[1] == "Gästekonto":  # Kommt als Betreuer nicht infrage
+                continue
+            elif Nutzer[3] == 0 or Nutzer[3] == 1:
+                if Nutzer[1].find(" ") == -1:
+                    BetreuerNamenSortiert.append(self.__VereinheitlicheNutzerName(Nutzer[1]))
+                else:
+                    BetreuerNamenSortiert.append(self.__VereinheitlicheNutzerName(Nutzer[1])[3:])
+        BetreuerNamenSortiert.sort()
+        return BetreuerNamenSortiert
+
     def __FormatiereNutzerName(self, NutzerName):
         # Hier werden bei Bedarf Zeilenumbrueche eingefuegt, damit die Labels von ButtonNutzer nicht zu lange werden
         # ab 15 Zeichen muss es einen Zeilenumbruch im Label geben
@@ -1349,6 +1453,8 @@ class MainWindow:
                     NachrichtGesamt += "\n"
                 if self.__UmsatzWoche > 0:
                     NachrichtGesamt += "Der Wochenumsatz lag in der letzten Woche bei {} €\n\n".format(self.__UmsatzWoche)
+                if self.__EinzahlungenWoche > 0:
+                    NachrichtGesamt += "Die Einzahlungen lagen in der letzten Woche bei {} €\n\n".format(self.__EinzahlungenWoche)
                 NachrichtGesamt += SchreibeNachrichtBestand(self.__Datenbank.LeseAlleZeilen("Bestand"))
                 KKT_Verwaltung.MailSenden(NachrichtGesamt)
             elif KKT_Verwaltung.MailSendenCheck() == 1:     # Bedarf einer kleinen Mail (nur Status zu Bestand).
@@ -1358,9 +1464,18 @@ class MainWindow:
         # Checkt, ob eine Woche vergangen ist und schreibt nach dieser Zeitspanne spezielle Logs (z. B. Umsatz der letzten Woche).
         DiffTageZuHeute = KKT_Verwaltung.ZeitspanneTage(self.__ZeitpunktLogStatus, datetime.today().date())
         if DiffTageZuHeute.days >= 7:
-            LogNachricht = "Der Wochenumsatz lag in der letzten Kalenderwoche (KW{}) bei {} €".format(datetime.today().isocalendar()[1] - 1, self.__UmsatzWoche)
+            LogNachricht = "Der Wochenumsatz lag in der letzten Kalenderwoche KW{} ({} - {}) bei {} €".format(datetime.today().isocalendar()[1] - 1,
+                                                                                                              str(self.__ZeitpunktLogStatus),
+                                                                                                              str(datetime.today().date()),
+                                                                                                              self.__UmsatzWoche)
+            self.__Datenbank.SchreibeNeueZeilen("Log", "zeitpunkt, nachricht", zeitpunkt="datetime('now','localtime')", nachricht=LogNachricht)
+            LogNachricht = "Die Einzahlungen lagen in der letzten Kalenderwoche KW{} ({} - {}) bei {} €".format(datetime.today().isocalendar()[1] - 1,
+                                                                                                                str(self.__ZeitpunktLogStatus),
+                                                                                                                str(datetime.today().date()),
+                                                                                                                self.__EinzahlungenWoche)
             self.__Datenbank.SchreibeNeueZeilen("Log", "zeitpunkt, nachricht", zeitpunkt="datetime('now','localtime')", nachricht=LogNachricht)
             self.__UmsatzWoche = 0
+            self.__EinzahlungenWoche = 0
             self.__ZeitpunktLogStatus = datetime.today().date()
 
 

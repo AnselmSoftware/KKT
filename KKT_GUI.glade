@@ -15,7 +15,7 @@
   </object>
   <object class="GtkWindow" id="WindowBestandAendern">
     <property name="width-request">500</property>
-    <property name="height-request">230</property>
+    <property name="height-request">290</property>
     <property name="can-focus">False</property>
     <child>
       <object class="GtkBox" id="box16">
@@ -29,50 +29,39 @@
             <property name="margin-bottom">5</property>
             <property name="orientation">vertical</property>
             <child>
-              <object class="GtkBox" id="box33">
+              <object class="GtkLabel" id="label13">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <child>
-                  <object class="GtkLabel" id="label13">
-                    <property name="height-request">60</property>
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="margin-left">135</property>
-                    <property name="margin-right">5</property>
-                    <property name="label" translatable="yes">Anpassen des Bestands:</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="BestandAendern_Produkt">
-                    <property name="height-request">30</property>
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="margin-left">10</property>
-                    <property name="margin-right">15</property>
-                    <property name="label" translatable="yes">label</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
+                <property name="margin-right">5</property>
+                <property name="margin-top">20</property>
+                <property name="margin-bottom">5</property>
+                <property name="label" translatable="yes">Anpassen des Bestands:</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="BestandAendern_Produkt">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="margin-top">5</property>
+                <property name="margin-bottom">20</property>
+                <property name="label" translatable="yes">label</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                  <attribute name="scale" value="2"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
               </packing>
             </child>
             <child>
@@ -123,7 +112,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">1</property>
+                <property name="position">2</property>
               </packing>
             </child>
             <child>
@@ -189,7 +178,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">2</property>
+                <property name="position">3</property>
               </packing>
             </child>
           </object>
@@ -298,7 +287,7 @@
     <property name="can-focus">False</property>
     <property name="orientation">vertical</property>
     <child>
-      <object class="GtkImage" id="image1">
+      <object class="GtkImage" id="ImageBestellabschluss_Gekauft">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="margin-top">10</property>
@@ -463,7 +452,7 @@
     <property name="can-focus">False</property>
     <property name="orientation">vertical</property>
     <child>
-      <object class="GtkImage" id="image4">
+      <object class="GtkImage" id="ImageBestellabschlussStopp_Warnung">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="margin-top">10</property>
@@ -500,14 +489,15 @@
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkLabel" id="BestellabschlussStopp_Limit">
-                <property name="width-request">450</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="margin-left">5</property>
+                <property name="margin-right">5</property>
                 <property name="margin-top">5</property>
                 <property name="margin-bottom">5</property>
-                <property name="label" translatable="yes">Ihr Kontostand beträgt weniger als # €.
+                <property name="label" translatable="yes">Ihr Kontostand ist niedriger als # €.
 Sie sind ein säumiger Schuldner!
-Laden Sie zuerst Ihren Kontostand auf, 
+Laden Sie zuerst Ihr Konto auf, 
 um weiter einkaufen zu können.</property>
                 <property name="justify">center</property>
                 <attributes>
@@ -665,7 +655,7 @@ um weiter einkaufen zu können.</property>
     <property name="can-focus">False</property>
     <property name="orientation">vertical</property>
     <child>
-      <object class="GtkImage" id="image3">
+      <object class="GtkImage" id="ImageBestellabschlussZins_Warnung">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="margin-top">10</property>
@@ -694,20 +684,21 @@ um weiter einkaufen zu können.</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <child>
-          <object class="GtkBox" id="box27">
+          <object class="GtkBox" id="ContainerBestellabschlussZins">
             <property name="width-request">450</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkLabel" id="BestellabschlussZins_Limit">
-                <property name="width-request">450</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="margin-left">5</property>
+                <property name="margin-right">5</property>
                 <property name="margin-top">7</property>
                 <property name="margin-bottom">3</property>
-                <property name="label" translatable="yes">Ihr Kontostand beträgt weniger als # €.
-Die Kaffeekasse leiht Ihnen somit eine enorme Menge Geld.</property>
+                <property name="label" translatable="yes">Ihr Kontostand ist niedriger als # €.
+Die Kaffeekasse leiht Ihnen somit eine enorme Menge Geld!</property>
                 <property name="justify">center</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
@@ -723,11 +714,11 @@ Die Kaffeekasse leiht Ihnen somit eine enorme Menge Geld.</property>
               <object class="GtkLabel" id="label15">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="margin-top">3</property>
                 <property name="margin-bottom">3</property>
-                <property name="label" translatable="yes">Für diesen Service muss die Kaffeekasse eine Gebühr
-erheben, damit die laufenden Kosten gedeckt werden können
-Die Gebühr richtet sich nach der Höhe Ihrer Schulden
-Das bedeutet für diesen Einkauf folgendes:</property>
+                <property name="label" translatable="yes">Um die laufenden Kosten zu decken, erhebt die Kaffeekasse 
+für diesen Service eine Gebühr. Diese berechnet sich 
+über einen Zinssatz aus der Höhe Ihrer Schulden:</property>
                 <property name="justify">center</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
@@ -963,7 +954,7 @@ Das bedeutet für diesen Einkauf folgendes:</property>
                 </child>
               </object>
               <packing>
-                <property name="expand">False</property>
+                <property name="expand">True</property>
                 <property name="fill">True</property>
                 <property name="position">2</property>
               </packing>
@@ -985,7 +976,7 @@ Das bedeutet für diesen Einkauf folgendes:</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="margin-top">7</property>
-                <property name="margin-bottom">5</property>
+                <property name="margin-bottom">3</property>
                 <property name="label" translatable="yes">Zinssatz-Entwicklung:</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
@@ -1002,7 +993,7 @@ Das bedeutet für diesen Einkauf folgendes:</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="margin-right">5</property>
-                <property name="margin-bottom">5</property>
+                <property name="margin-bottom">2</property>
                 <property name="shadow-type">in</property>
                 <child>
                   <placeholder/>
@@ -1302,6 +1293,7 @@ Das bedeutet für diesen Einkauf folgendes:</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="halign">center</property>
+        <property name="valign">center</property>
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>
@@ -2256,6 +2248,8 @@ Bankinstitut XXX</property>
             <property name="can-focus">False</property>
             <property name="halign">center</property>
             <property name="valign">center</property>
+            <property name="margin-left">5</property>
+            <property name="margin-right">5</property>
             <child>
               <object class="GtkScrolledWindow" id="ScrolledwindowKontoauszug">
                 <property name="width-request">430</property>
@@ -2280,7 +2274,7 @@ Bankinstitut XXX</property>
                 <property name="can-focus">False</property>
                 <property name="halign">start</property>
                 <property name="valign">end</property>
-                <property name="margin-bottom">1</property>
+                <property name="margin-bottom">2</property>
                 <property name="label" translatable="yes">Heute:  #</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
@@ -2297,7 +2291,7 @@ Bankinstitut XXX</property>
                 <property name="can-focus">False</property>
                 <property name="halign">end</property>
                 <property name="valign">end</property>
-                <property name="margin-bottom">1</property>
+                <property name="margin-bottom">2</property>
                 <property name="label" translatable="yes">Tage-Rückblick</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
@@ -2314,7 +2308,7 @@ Bankinstitut XXX</property>
                 <property name="can-focus">False</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkScrolledWindow" id="scrolledwindow5">
+                  <object class="GtkScrolledWindow" id="ScrolledwindowKontoauszug_Text">
                     <property name="width-request">340</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -2349,7 +2343,7 @@ Bankinstitut XXX</property>
                         <property name="valign">end</property>
                         <property name="margin-right">10</property>
                         <property name="margin-bottom">3</property>
-                        <property name="label" translatable="yes">Gesamtumsatz:</property>
+                        <property name="label" translatable="yes">Gesamtausgaben:</property>
                         <attributes>
                           <attribute name="weight" value="bold"/>
                         </attributes>
@@ -2637,23 +2631,6 @@ Bankinstitut XXX</property>
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="Nutzer_NutzerAnlegen">
-            <property name="label" translatable="yes">Neuer Nutzer</property>
-            <property name="width-request">165</property>
-            <property name="height-request">60</property>
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <signal name="clicked" handler="AnzeigeWindowNutzerAnlegen" swapped="no"/>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack-type">end</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
           <!-- n-columns=2 n-rows=2 -->
           <object class="GtkGrid">
             <property name="visible">True</property>
@@ -2714,13 +2691,30 @@ Bankinstitut XXX</property>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="Nutzer_NutzerAnlegen">
+            <property name="label" translatable="yes">Neuer Nutzer</property>
+            <property name="width-request">165</property>
+            <property name="height-request">60</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="AnzeigeWindowNutzerAnlegen" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack-type">end</property>
             <property name="position">2</property>
           </packing>
         </child>
       </object>
       <packing>
         <property name="expand">False</property>
-        <property name="fill">False</property>
+        <property name="fill">True</property>
         <property name="position">1</property>
       </packing>
     </child>
@@ -2768,59 +2762,79 @@ Bankinstitut XXX</property>
           <object class="GtkBox" id="box32">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="homogeneous">True</property>
+            <property name="halign">center</property>
             <child>
-              <object class="GtkBox" id="box39">
+              <!-- n-columns=2 n-rows=2 -->
+              <object class="GtkGrid">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkLabel" id="label12">
+                  <object class="GtkExpander" id="NutzerAnlegen_BetreuerName">
+                    <property name="width-request">140</property>
                     <property name="visible">True</property>
+                    <property name="sensitive">False</property>
                     <property name="can-focus">False</property>
-                    <property name="halign">center</property>
-                    <property name="margin-top">5</property>
-                    <property name="margin-bottom">2</property>
-                    <property name="label" translatable="yes">Name des neuen Nutzers:</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkEntry" id="NutzerAnlegen_NutzerName">
-                    <property name="width-request">255</property>
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="halign">center</property>
-                    <property name="max-length">22</property>
-                    <property name="invisible-char">●</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkBox" id="box40">
-                    <property name="height-request">40</property>
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="halign">center</property>
-                    <property name="margin-top">4</property>
-                    <property name="margin-bottom">4</property>
+                    <property name="margin-left">10</property>
+                    <property name="expanded">True</property>
                     <child>
+                      <object class="GtkScrolledWindow">
+                        <property name="height-request">113</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="shadow-type">in</property>
+                        <property name="min-content-height">100</property>
+                        <child>
+                          <object class="GtkViewport">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <child>
+                              <object class="GtkBox" id="ContainerNutzerAnlegenBetreuer">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="orientation">vertical</property>
+                                <property name="homogeneous">True</property>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child type="label">
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="margin-right">5</property>
-                        <property name="label" translatable="yes">Gruppe:</property>
+                        <property name="margin-top">7</property>
+                        <property name="margin-bottom">2</property>
+                        <property name="label" translatable="yes">Betreuer</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                        </attributes>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="left-attach">1</property>
+                    <property name="top-attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="margin-left">10</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkLabel" id="label12">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="margin-top">7</property>
+                        <property name="margin-bottom">2</property>
+                        <property name="label" translatable="yes">Name des neuen Nutzers:</property>
                         <attributes>
                           <attribute name="weight" value="bold"/>
                         </attributes>
@@ -2832,51 +2846,101 @@ Bankinstitut XXX</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkRadioButton" id="NutzerAnlegen_Kategorie1">
-                        <property name="label" translatable="yes">Kategorie1</property>
+                      <object class="GtkEntry" id="NutzerAnlegen_NutzerName">
+                        <property name="width-request">210</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
-                        <property name="receives-default">False</property>
-                        <property name="margin-right">10</property>
-                        <property name="xalign">0</property>
-                        <property name="active">True</property>
-                        <property name="draw-indicator">True</property>
-                        <signal name="toggled" handler="on_ButtonKategorie_clicked" swapped="no"/>
+                        <property name="halign">start</property>
+                        <property name="max-length">22</property>
+                        <property name="invisible-char">●</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
-                        <property name="fill">True</property>
+                        <property name="fill">False</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkRadioButton" id="NutzerAnlegen_Kategorie2">
-                        <property name="label" translatable="yes">Kategorie2</property>
+                      <!-- n-columns=2 n-rows=3 -->
+                      <object class="GtkGrid">
                         <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">False</property>
-                        <property name="margin-right">10</property>
-                        <property name="xalign">0</property>
-                        <property name="draw-indicator">True</property>
-                        <property name="group">NutzerAnlegen_Kategorie1</property>
-                        <signal name="toggled" handler="on_ButtonKategorie_clicked" swapped="no"/>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkRadioButton" id="NutzerAnlegen_Kategorie3">
-                        <property name="label" translatable="yes">Kategorie3</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">False</property>
-                        <property name="xalign">0</property>
-                        <property name="draw-indicator">True</property>
-                        <property name="group">NutzerAnlegen_Kategorie1</property>
-                        <signal name="toggled" handler="on_ButtonKategorie_clicked" swapped="no"/>
+                        <property name="can-focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="margin-top">5</property>
+                        <property name="row-homogeneous">True</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="margin-right">5</property>
+                            <property name="margin-bottom">4</property>
+                            <property name="label" translatable="yes">Gruppe:</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                            </attributes>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkRadioButton" id="NutzerAnlegen_Kategorie1">
+                            <property name="label" translatable="yes">Kategorie1</property>
+                            <property name="visible">True</property>
+                            <property name="can-focus">True</property>
+                            <property name="receives-default">False</property>
+                            <property name="margin-bottom">4</property>
+                            <property name="xalign">0</property>
+                            <property name="active">True</property>
+                            <property name="draw-indicator">True</property>
+                            <signal name="toggled" handler="on_ButtonKategorie_clicked" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkRadioButton" id="NutzerAnlegen_Kategorie2">
+                            <property name="label" translatable="yes">Kategorie2</property>
+                            <property name="visible">True</property>
+                            <property name="can-focus">True</property>
+                            <property name="receives-default">False</property>
+                            <property name="margin-bottom">4</property>
+                            <property name="xalign">0</property>
+                            <property name="draw-indicator">True</property>
+                            <property name="group">NutzerAnlegen_Kategorie1</property>
+                            <signal name="toggled" handler="on_ButtonKategorie_clicked" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkRadioButton" id="NutzerAnlegen_Kategorie3">
+                            <property name="label" translatable="yes">Kategorie3</property>
+                            <property name="visible">True</property>
+                            <property name="can-focus">True</property>
+                            <property name="receives-default">False</property>
+                            <property name="margin-bottom">4</property>
+                            <property name="xalign">0</property>
+                            <property name="draw-indicator">True</property>
+                            <property name="group">NutzerAnlegen_Kategorie1</property>
+                            <signal name="toggled" handler="on_ButtonKategorie_clicked" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -2886,55 +2950,27 @@ Bankinstitut XXX</property>
                     </child>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
+                    <property name="left-attach">0</property>
+                    <property name="top-attach">0</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label23">
+                  <object class="GtkBox" id="ContainerNutzerAnlegenAnmerkung">
+                    <property name="height-request">22</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="halign">center</property>
-                    <property name="margin-bottom">2</property>
-                    <property name="label" translatable="yes">Betreuer (für Studierende):</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
+                    <property name="halign">start</property>
+                    <property name="margin-left">10</property>
+                    <property name="margin-top">2</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <placeholder/>
+                    </child>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">3</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkEntry" id="NutzerAnlegen_BetreuerName">
-                    <property name="width-request">225</property>
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="halign">center</property>
-                    <property name="max-length">24</property>
-                    <property name="invisible-char">●</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">4</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="NutzerAnlegen_Anmerkung">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="margin-top">7</property>
-                    <property name="margin-bottom">4</property>
-                    <property name="label" translatable="yes">Anmerkung ...</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">6</property>
+                    <property name="left-attach">0</property>
+                    <property name="top-attach">1</property>
+                    <property name="width">2</property>
                   </packing>
                 </child>
               </object>
@@ -2948,20 +2984,21 @@ Bankinstitut XXX</property>
               <object class="GtkBox" id="box41">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="valign">center</property>
+                <property name="halign">end</property>
+                <property name="margin-left">20</property>
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkBox" id="box42">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="halign">center</property>
+                    <property name="halign">start</property>
+                    <property name="margin-top">7</property>
+                    <property name="margin-bottom">2</property>
                     <child>
                       <object class="GtkLabel" id="label26">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="margin-right">5</property>
-                        <property name="margin-top">5</property>
-                        <property name="margin-bottom">2</property>
                         <property name="label" translatable="yes">Geburtstag (freiwillige Angabe):</property>
                         <attributes>
                           <attribute name="weight" value="bold"/>
@@ -2978,8 +3015,6 @@ Bankinstitut XXX</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="margin-left">3</property>
-                        <property name="margin-top">5</property>
-                        <property name="margin-bottom">2</property>
                         <property name="label" translatable="yes">XX.XX.XXXX</property>
                         <attributes>
                           <attribute name="weight" value="bold"/>
@@ -3000,8 +3035,7 @@ Bankinstitut XXX</property>
                 </child>
                 <child>
                   <object class="GtkCalendar" id="NutzerAnlegen_Kalender">
-                    <property name="width-request">320</property>
-                    <property name="height-request">140</property>
+                    <property name="width-request">300</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="halign">center</property>
@@ -3036,14 +3070,14 @@ Bankinstitut XXX</property>
           </packing>
         </child>
         <child>
-          <object class="GtkBox" id="ContainerTastatur">
-            <property name="height-request">150</property>
+          <object class="GtkBox" id="ContainerNutzerAnlegen_Tastatur">
+            <property name="height-request">165</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-left">10</property>
-            <property name="margin-right">10</property>
-            <property name="margin-top">3</property>
-            <property name="margin-bottom">3</property>
+            <property name="margin-left">5</property>
+            <property name="margin-right">5</property>
+            <property name="margin-top">2</property>
+            <property name="margin-bottom">2</property>
             <property name="orientation">vertical</property>
             <child>
               <placeholder/>
@@ -3525,14 +3559,12 @@ GTK Plattform: GTK+ 3.0 64-bit</property>
     </child>
   </object>
   <object class="GtkWindow" id="WindowTop">
-    <property name="width-request">800</property>
-    <property name="height-request">480</property>
     <property name="can-focus">False</property>
     <property name="default-width">800</property>
     <property name="default-height">480</property>
     <signal name="delete-event" handler="BeendenGUIKKT" swapped="no"/>
     <child>
-      <object class="GtkBox" id="Container">
+      <object class="GtkBox" id="ContainerTop">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="orientation">vertical</property>

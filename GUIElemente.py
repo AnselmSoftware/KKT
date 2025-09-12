@@ -1,7 +1,7 @@
 """
 Created on 18.12.2019
 @author: Anselm Heuer
-Version 1.5 - last change on 21.04.2025
+Version 1.6 - last change on 11.09.2025
 Ein Sammlung von Widgets fuer eine GUI. Kann in eine bestehende GUI implementiert werden.
 --A collection of widgets for a GUI. Can be implemented in an existing GUI--
 --Comments in functions are partly written in German - can easily be translated into english with translation programs :)--
@@ -30,7 +30,7 @@ class Widget_Produktanzeige(Gtk.Box):
     """
     __gsignals__ = {'ButtonXsPressed': (GObject.SIGNAL_RUN_FIRST, None, (str, ))}
 
-    def __init__(self, BreiteWindow, MethodeBeiClick, WidgetID, LabelButton, LabelUnterButtonText, LabelUnterButtonZahl, PressedTimeMax):
+    def __init__(self, DimensionButton, MethodeBeiClick, WidgetID, LabelButton, LabelUnterButtonText, LabelUnterButtonZahl, PressedTimeMax):
         super().__init__(orientation=Gtk.Orientation(value=1))
 
         # Variablen dieser Klasse
@@ -49,7 +49,7 @@ class Widget_Produktanzeige(Gtk.Box):
         self.pack_start(self.__Label, False, True, 5)
 
         # Anpassen der Widgets
-        self.__Button.set_size_request(BreiteWindow / 5 - 11, 70)
+        self.__Button.set_size_request(DimensionButton[0], DimensionButton[1])
         self.__Button.connect("clicked", MethodeBeiClick, self)
         self.__Button.connect("pressed", self.__ZeitmessungButtonPressedStart)
         self.__Button.connect("released", self.__ZeitmessungButtonPressedEnde)
@@ -65,7 +65,7 @@ class Widget_Produktanzeige(Gtk.Box):
             self.__CheckeFarbeLabelUnterButton()
 
     def BlinkenLabelUnterButton(self):
-        # Das Label unter dem Button verschwindet und erscheint zwei mal hintereinander wieder
+        # Das Label unter dem Button verschwindet und erscheint zweimal hintereinander wieder
         if self.__Blinker == 0:
             self.__Label.set_markup("")
             self.__Blinker += 1
@@ -113,7 +113,7 @@ class Widget_NutzerButton(Gtk.Button):
     """
     __gsignals__ = {'NutzerButtonXsPressed': (GObject.SIGNAL_RUN_FIRST, None, ()), 'NutzerButtonClicked': (GObject.SIGNAL_RUN_FIRST, None, ())}
 
-    def __init__(self, BreiteWindow, WidgetID, PressedTimeMax):
+    def __init__(self, DimensionButton, WidgetID, PressedTimeMax):
         super().__init__(label="")
 
         # Variablen dieser Klasse
@@ -122,7 +122,7 @@ class Widget_NutzerButton(Gtk.Button):
         self.__PressedTimeMax = PressedTimeMax
 
         # Anpassen des Widgets
-        self.set_size_request(BreiteWindow / 5 - 10, 110)
+        self.set_size_request(DimensionButton[0], DimensionButton[1])
         self.connect("pressed", self.__ZeitmessungButtonPressedStart)
         self.connect("released", self.__ZeitmessungButtonPressedEnde)
 
@@ -144,6 +144,72 @@ class Widget_NutzerButton(Gtk.Button):
         else:
             self.emit("NutzerButtonClicked")
         # print("Button wurde ", time.time() - self.__PressedTime, " s gedrueckt")
+
+
+class Widget_BetreuerButton(Gtk.ToggleButton):
+    """
+    Diese Klasse stellt einen angepassten ToggleButton zur Verfuegung, der eine eindeutige ID fuer den Namen des Betreuers besitzt.
+    Weiterhin ist der ToggleButton aus optischen Gründen nicht fokusierbar.
+
+    Methoden:
+    - [LeseID] Hiermit kann die eindeutige Identifikation des Widgets ausgelesen werden.
+    - [SchreibeID] Hiermit kann die eindeutige Identifikation des Widgets neu geschrieben werden.
+    """
+    def __init__(self, WidgetID):
+        super().__init__(label="")
+
+        # Variablen dieser Klasse
+        self.__ID = WidgetID
+
+        # Anpassen des Widgets
+        self.set_can_focus(False)
+
+    def LeseID(self):
+        return self.__ID
+
+    def SchreibeID(self, WidgetIDNeu):
+        self.__ID = WidgetIDNeu
+
+
+class Widget_BlinkerLabel(Gtk.Label):
+    """
+    Diese Klasse stellt ein angepasstes Label zur Verfuegung, dass in roter Schrift einen Text darstellt. Der Text kann auf Wunsch
+    kurz aufblinken, um den Fokus eines Nutzers auf den Text zu lenken.
+
+    Methoden:
+    - [SchreibeLabel] Hiermit kann der Text des Labels / Widgets veraendert werden.
+    - [BlinkenLabel] Mit dieser Methode kann der Text des Labels kurz zum Aufblinken gebracht werden.
+    """
+    def __init__(self, Label):
+        super().__init__(label="")
+
+        # Variablen dieser Klasse
+        self.__Label = Label
+        self.__Blinker = 0
+
+        # Anpassen des Widgets
+        self.set_markup("<span color='red'>{}</span>".format(self.__Label))
+
+    def SchreibeLabel(self, LabelNeu):
+        self.__Label = LabelNeu
+        self.set_markup("<span color='red'>{}</span>".format(self.__Label))
+
+    def BlinkenLabel(self):
+        # Das Label verschwindet und erscheint zweimal hintereinander wieder
+        if self.__Blinker == 0:
+            self.set_markup("")
+            self.__Blinker += 1
+        elif self.__Blinker == 1:
+            self.set_markup("<span color='red'>{}</span>".format(self.__Label))
+            self.__Blinker += 1
+        elif self.__Blinker == 2:
+            self.set_markup("")
+            self.__Blinker += 1
+        else:
+            self.set_markup("<span color='red'>{}</span>".format(self.__Label))
+            self.__Blinker = 0
+            return False
+        GLib.timeout_add(175, self.BlinkenLabel)
 
 
 class Widget_Tastatur(Gtk.Box):
