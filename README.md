@@ -11,7 +11,6 @@
 ---
 > [!NOTE]
 > A detailed readme in English will follow soon ..\
-> Placeholders will be replaced soon ...
 ---
 
 
@@ -25,23 +24,22 @@ Wesentliche Merkmale:
 - **Einfach zu verwalten** – Vom Anlegen neuer Nutzer über das Aufladen von Guthaben auf ein Nutzerkonto bis hin zum Ein- und Austragen vorhandener Produkte ist alles innerhalb der Software möglich - ohne manuelle Interaktion mit der Datenbank.
 - **Online** – Verantwortliche profitieren vom automatischen Erhalt von Statusmails über den Bestand von Produkten und Ereignissen im KKT.
 
+<div align="center">
 <img width="2500" height="1354" alt="KKT_im_Einsatz" src="https://github.com/user-attachments/assets/69d7ba23-48f6-4fc0-833c-455d86cf9346" />
-
+</div>
 
 ## Funktionen des KKT
 Die Software startet mit einer Übersichtsseite, auf der alle (aktiven) Nutzer angezeigt werden. Diese kann als Hauptfenster betrachtet werden. Am unteren Rand dieser Seite befindet sich eine Leiste mit einem grünen Knopf (siehe Abbildung). Im Falle eines internen Fehlers springt dieser Knopf auf Rot. Über diesen Knopf kann ein Fenster geöffnet werden, das Informationen zur Software und deren Entwicklung bereitstellt. In dieser Leiste wird außerdem ein anstehender Geburtstag eines Nutzers angezeigt. Rechts davon befindet sich ein Button zum Anlegen eines neuen Nutzers.
 
 <div align="center">
-    
-***-- Platzhalter: Screenshot der Übersichtsseite des KKT --***
+<img width="802" height="482" alt="KKT_Screenshot_1" src="https://github.com/user-attachments/assets/8cdb8b52-d31d-42b2-9d8d-b4459b2542a2" />
 </div>
 
 Auf der Übersichtsseite werden die Nutzer in drei Gruppen eingeteilt. Diese Gruppen sind in der Software voreingestellt und heißen _Permanente_, _wissenschaftliche Mitarbeiter_ und _Studierende_. Andere Gruppennamen können auf Wunsch vergeben werden, indem der Code in `KKT_Main.py` angepasst wird.\
 Neue Nutzer werden in einem separaten Fenster angelegt (siehe Abbildung). In diesem muss der Name des neuen Nutzers angegeben werden. Dieser muss sinnvoll gewählt werden und wird vor der Anlage des Nutzers überprüft. Des Weiteren wird der Name nach dem Anlegen des neuen Nutzers formatiert. Falls vorhanden, wird der Vorname mit einem Punkt abgekürzt und folgt dem Nachnamen. Zudem muss eine Zuordnung zu einer Gruppe erfolgen. Nutzer der letzten Gruppe _Studierende_ müssen einen Betreuer angeben, sodass im Falle eines Ausscheidens des Nutzers eine Person für eventuell verbliebene Schulden geradestehen kann. Der Geburtstag kann angegeben werden, wenn dieser auf der Übersichtsseite erscheinen soll (freiwillig).
 
 <div align="center">
-    
-***-- Platzhalter: Screenshot der Seite Nutzer Anlegen des KKT --***
+   <img width="802" height="482" alt="KKT_Screenshot_2" src="https://github.com/user-attachments/assets/678c6ae0-f780-4640-9824-5924093b3b47" />
 </div>
 
 Auf der Übersichtsseite können Nutzer durch einen langen Klick gelöscht werden. Hierzu mindestens drei Sekunden lang den Button des jeweiligen Nutzers gedrückt halten (Zeitspanne kann in `KKT_Parameter.py` verändert werden). Falls mit dem Nutzer eine Abrechnung des Guthabens / der Schulden stattgefunden hat, kann dies beim Löschen angegeben werden. Gelöschte Nutzer werden automatisch in der Datenbank archiviert und können so später reaktiviert werden.\
@@ -49,8 +47,7 @@ KKT ermittelt im Hintergrund, ob ein Nutzer über einen längeren Zeitraum inakt
 Durch einen einfachen Klick auf einen Nutzer wird die Bestellübersicht geöffnet (siehe Abbildung). Oben links wird der Name des Nutzers angezeigt und es wird die Möglichkeit geboten, einen Doktortitel zu erwerben (Spaß-Feature). Zudem wird der aktuelle Kontostand angezeigt. Über zwei Buttons besteht die Möglichkeit, die letzten Käufe in einem Kontoauszug anzuzeigen und das Konto aufzuladen.
 
 <div align="center">
-    
-***-- Platzhalter: Screenshot der Seite Bestellübersicht des KKT --***
+   <img width="802" height="482" alt="KKT_Screenshot_3" src="https://github.com/user-attachments/assets/eba72164-c70f-4a0c-be79-c7dafb81d52c" />
 </div>
 
 Im Fenster der Bestellübersicht können die Produkte für den Kauf ausgewählt werden. Solange der Kauf noch nicht bestätigt wurde, lässt sich die Auswahl korrigieren. Produkte, deren Bestand auf _Null_ gefallen ist, werden rot markiert und können nicht mehr ausgewählt werden. Nach dem Kauf werden der Bestand der Produkte und der Kontostand des Nutzers automatisch angepasst.
@@ -58,22 +55,19 @@ Es gibt ein Schuldenlimit für Nutzer, ab dem keine Käufe mehr getätigt werden
 Werden Produkte, wie beispielsweise Kaffee, neu gekauft, muss der Bestand in der Software entsprechend erhöht werden. Hierzu den Button des jeweiligen Produkts mindestens zwei Sekunden lang gedrückt halten (Zeitspanne kann in `KKT_Parameter.py` verändert werden). In einem separaten Fenster (siehe Abbildung) kann der Bestand um einen auswählbaren Betrag erhöht oder um den aktuellen Bestand reduziert werden (zur Korrektur von Fehleingaben). Zudem können nicht abgerechnete Produkte auf ein _Diebstahlkonto_ gebucht werden. Dies ermöglicht es, den Verlust der Kaffeeküche nach einer Weile genau zu protokollieren. Hierzu die Datenbank auswerten – der Kontostand des _Diebstahlkontos_ entspricht dem Verlust.
 
 <div align="center">
-    
-***… Platzhalter: Screenshot des Fensters Bestand anpassen des KKT ...***
+   <img width="802" height="482" alt="KKT_Screenshot_4" src="https://github.com/user-attachments/assets/c61c3938-0559-4a7f-9760-0005a1a5a46c" />
 </div>
 
 Über das Fenster der Bestellübersicht können Nutzer durch Klicken auf den entsprechenden Button ihr Konto auch selbstständig aufladen. In einem separaten Fenster können unterschiedliche Beträge ausgewählt werden (siehe Abbildung). Darüber hinaus kann ein kleiner Betrag (in `KKT_Parameter.py` festgelegt) ausgewählt werden, der für das Ausräumen einer Spülmaschine vorgesehen ist. Damit sollen die Nutzer motiviert werden, dies auch zu tun. Erst nach Ablauf einer bestimmten Zeitspanne ist eine erneute Auswahl dieses Betrags möglich (in `KKT_Parameter.py` festgelegt). Auf der rechten Seite werden, falls vorhanden, die Bankdaten des Verantwortlichen der Kaffeeküche angezeigt. Die tatsächliche Transaktion basiert auf Vertrauensbasis, beispielsweise durch Überweisung oder Einwurf von Bargeld in eine Kaffeekasse / Sparbüchse in der Kaffeeküche.
 
 <div align="center">
-    
-***… Platzhalter: Screenshot des Fensters Konto aufladen des KKT ...***
+   <img width="802" height="482" alt="KKT_Screenshot_5" src="https://github.com/user-attachments/assets/fca800e7-074a-4568-8716-a092b0515444" />
 </div>
 
 Ebenfalls über das Fenster der Bestellübersicht können Nutzer durch Klicken auf den entsprechenden Button einen Kontoauszug aufrufen. In dem separaten Fenster werden auf der linken Seite die letzten Käufe mit dem jeweiligen Datum angezeigt (siehe Abbildung). Es wird auch angegeben, wie viel Geld insgesamt im betrachteten Zeitraum ausgegeben wurde. Die Ausgaben pro Tag werden auf der rechten Seite zusätzlich in einer informativen Grafik dargestellt.
 
 <div align="center">
-    
-***… Platzhalter: Screenshot des Fensters Kontoauszug des KKT ...***
+   <img width="802" height="482" alt="KKT_Screenshot_6" src="https://github.com/user-attachments/assets/463b33aa-26cf-4e92-9b8b-983c77971baa" />
 </div>
 
 KKT ermittelt im Hintergrund für jede Kalenderwoche den Umsatz und speichert diese Information in der Datenbank. So lässt sich nach einiger Zeit ebenfalls erkennen, ob die Einnahmen und Ausgaben übereinstimmen oder ob zu viele Produkte nicht abgerechnet wurden.
