@@ -1,7 +1,7 @@
 """
 Created on 05.12.2019
 @author: Anselm Heuer
-Version 1.9 - last change on 12.09.2025
+Version 1.9 - last change on 18.09.2025
 Software fuer die digitale Kaffeekueche - Das Tool zum Abrechnen von Produkten bei vielen Nutzern!
 --Software for the digital coffee kitchen - The tool for billing products for many users!--
 --Comments in functions are partly written in German - can easily be translated into english with translation programs :)--
@@ -1289,7 +1289,11 @@ class MainWindow:
                 if Nutzer[1].find(" ") == -1:
                     BetreuerNamenSortiert.append(self.__VereinheitlicheNutzerName(Nutzer[1]))
                 else:
-                    BetreuerNamenSortiert.append(self.__VereinheitlicheNutzerName(Nutzer[1])[3:])
+                    NutzerTemp = self.__VereinheitlicheNutzerName(Nutzer[1])[3:]
+                    if NutzerTemp.find(" ") == -1:
+                        BetreuerNamenSortiert.append(NutzerTemp)
+                    else:
+                        BetreuerNamenSortiert.append(NutzerTemp[NutzerTemp.rfind(" ") + 1:])
         BetreuerNamenSortiert.sort()
         return BetreuerNamenSortiert
 
