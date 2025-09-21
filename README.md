@@ -135,12 +135,15 @@ Die Datei `KKT_Parameter.py` muss einmalig an die Bedürfnisse der jeweiligen Ka
 - Maximaler Schuldenstand eines Nutzers
 - Gutschrift für das Ausräumen einer Spülmaschine (als Motivation gedacht)
 - Nach welcher Zeitspanne diese Gutschrift wieder abgerufen werden kann
-- Der Preis für den Kauf eines Doktortitels (Spaß-Feature)
 - Die Staffelungen der Beträge, um die das Konto eines Nutzers aufgeladen werden kann
 - Die Bankdaten einer Kaffeeküche bzw. eines Verantwortlichen
 - Nach welcher Zeitspanne ein Nutzer als inaktiv markiert wird
+- Der Preis für den Kauf eines Doktortitels (Spaß-Feature)
+- Die Bezeichnung der drei Nutzergruppen
 
 Wenn das Feature zum automatischen Versenden von Statusmails genutzt werden soll, muss es aktiviert werden. Dazu die entsprechende Variable auf `True` setzen und die Informationen zum angelegten Mailkonto (s. [Unten](#Statusmails)) in den weiteren entsprechenden Variablen speichern.
+
+Das KKT wurde für eine Auflösung von 800 x 480 Pixeln designt und sieht bei dieser Auflösung optimal aus (s. [Oben](#Funktionen-des-KKT)). Allerdings kann die Auflösung in Grenzen angepasst werden, um die Darstellung auf anderen Geräten zu verbessern. Dazu müssen die beiden entsprechenden Variablen für die Auflösung angepasst werden.
 
 ### Datenbank
 Die mitgelieferte Datenbank `KKT_database.sqlite` enthält Beispieldaten in allen zum Programmstart erforderlichen Tabellen und kann somit sofort verwendet werden. Es ist allerdings sinnvoll, die Datenbank an die Bedürfnisse der Kaffeeküche bzw. des Verantwortlichen anzupassen. Hierfür kann beispielsweise die Software _DB Browser for SQLite_ verwendet werden.\
@@ -232,7 +235,8 @@ Die Tabellen `Nutzer` und `NutzerAlt` sind für die Speicherung von Nutzerdaten 
 - Einzahlung von Geld auf das Konto eines Nutzers
 - Änderung des Bestands eines Produkts (+ Angaben zur Art der Änderung)
 - Auftreten eines Fehlers im Thread InterneVerwaltung (+ Art des Fehlers)
-- Der Wochenumsatz der letzten Kalenderwoche
+- Der Umsatz der letzten Kalenderwoche
+- Die Einzahlungen der letzten Kalenderwoche
 
 ## Beitragende
 Bis Version 1.9 vom 12. September 2025:\
